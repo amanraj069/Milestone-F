@@ -146,10 +146,6 @@ const ComplaintForm = () => {
             <strong>Company:</strong>
             <span>{job.company}</span>
           </div>
-          <div className="job-info-item">
-            <strong>Job ID:</strong>
-            <span>{job.id}</span>
-          </div>
         </div>
       </div>
 

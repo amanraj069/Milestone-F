@@ -429,6 +429,15 @@
   background: #c82333;
 }
 
+.chat-btn-action {
+  background: #17a2b8;
+  color: white;
+}
+
+.chat-btn-action:hover:not(:disabled) {
+  background: #138496;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .admin-complaints-container {

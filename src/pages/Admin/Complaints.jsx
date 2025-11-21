@@ -310,10 +310,6 @@ const AdminComplaints = () => {
                     <strong>Job Title:</strong>
                     <span>{selectedComplaint.jobTitle}</span>
                   </div>
-                  <div className="detail-item">
-                    <strong>Job ID:</strong>
-                    <span>{selectedComplaint.jobId}</span>
-                  </div>
                 </div>
               </div>
 
@@ -339,6 +335,12 @@ const AdminComplaints = () => {
               </div>
 
               <div className="modal-actions">
+                <button
+                  className="status-btn chat-btn-action"
+                  onClick={() => alert('Chat functionality will be implemented soon')}
+                >
+                  <i className="fas fa-comment"></i> Chat
+                </button>
                 <button
                   className="status-btn pending-btn"
                   onClick={() => handleUpdateStatus('Pending')}
