@@ -14,6 +14,7 @@ const AdminComplaints = () => {
   const [filterStatus, setFilterStatus] = useState('All');
   const [filterPriority, setFilterPriority] = useState('All');
   const [filterComplainantType, setFilterComplainantType] = useState('All');
+  const [searchTerm, setSearchTerm] = useState('');
   const [adminNotes, setAdminNotes] = useState('');
   const [updating, setUpdating] = useState(false);
 
@@ -100,7 +101,12 @@ const AdminComplaints = () => {
     const statusMatch = filterStatus === 'All' || complaint.status === filterStatus;
     const priorityMatch = filterPriority === 'All' || complaint.priority === filterPriority;
     const complainantMatch = filterComplainantType === 'All' || complaint.complainantType === filterComplainantType;
-    return statusMatch && priorityMatch && complainantMatch;
+    const searchMatch = searchTerm === '' || 
+      complaint.subject.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      complaint.complainantName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      complaint.complaintType.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      complaint.jobTitle.toLowerCase().includes(searchTerm.toLowerCase());
+    return statusMatch && priorityMatch && complainantMatch && searchMatch;
   });
 
   const content = (
@@ -111,9 +117,19 @@ const AdminComplaints = () => {
           <h1 className="page-title">Complaints Management</h1>
           <p className="page-subtitle">Review and manage freelancer complaints</p>
         </div>
-        <button className="refresh-btn" onClick={fetchComplaints}>
-          <i className="fas fa-sync-alt"></i> Refresh
-        </button>
+      </div>
+
+      {/* Search Bar */}
+      <div className="search-section">
+        <div className="search-bar">
+          <i className="fas fa-search"></i>
+          <input
+            type="text"
+            placeholder="Search by subject, name, type, or job..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        </div>
       </div>
 
       {/* Filters */}
@@ -185,7 +201,6 @@ const AdminComplaints = () => {
           <table className="complaints-table">
             <thead>
               <tr>
-                <th>ID</th>
                 <th>Filed By</th>
                 <th>Against</th>
                 <th>Job</th>
@@ -200,7 +215,6 @@ const AdminComplaints = () => {
             <tbody>
               {filteredComplaints.map((complaint) => (
                 <tr key={complaint.complaintId}>
-                  <td className="complaint-id">{complaint.complaintId.substring(0, 8)}...</td>
                   <td>
                     <div className="complainant-cell">
                       <span className={`type-badge ${complaint.complainantType === 'Freelancer' ? 'type-freelancer' : 'type-employer'}`}>

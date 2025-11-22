@@ -1,5 +1,5 @@
 .admin-complaints-container {
-  padding: 2rem;
+  padding: 0;
 }
 
 .page-header {
@@ -37,6 +37,39 @@
 
 .refresh-btn:hover {
   background: #0056b3;
+}
+
+.search-section {
+  margin-bottom: 1.5rem;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.search-bar i {
+  color: #666;
+  font-size: 1rem;
+}
+
+.search-bar input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  font-size: 0.95rem;
+  outline: none;
+  color: #333;
+}
+
+.search-bar input::placeholder {
+  color: #999;
 }
 
 .filters-section {
