@@ -143,7 +143,6 @@ const AdminComplaints = () => {
             <option value="Low">Low</option>
             <option value="Medium">Medium</option>
             <option value="High">High</option>
-            <option value="Critical">Critical</option>
           </select>
         </div>
         <div className="filter-stats">
@@ -344,28 +343,28 @@ const AdminComplaints = () => {
                 <button
                   className="status-btn pending-btn"
                   onClick={() => handleUpdateStatus('Pending')}
-                  disabled={updating || selectedComplaint.status === 'Pending'}
+                  disabled={updating || selectedComplaint.status === 'Pending' || selectedComplaint.status === 'Resolved' || selectedComplaint.status === 'Rejected'}
                 >
                   Mark as Pending
                 </button>
                 <button
                   className="status-btn review-btn"
                   onClick={() => handleUpdateStatus('Under Review')}
-                  disabled={updating || selectedComplaint.status === 'Under Review'}
+                  disabled={updating || selectedComplaint.status === 'Under Review' || selectedComplaint.status === 'Resolved' || selectedComplaint.status === 'Rejected'}
                 >
                   Under Review
                 </button>
                 <button
                   className="status-btn resolved-btn"
                   onClick={() => handleUpdateStatus('Resolved')}
-                  disabled={updating || selectedComplaint.status === 'Resolved'}
+                  disabled={updating || selectedComplaint.status === 'Resolved' || selectedComplaint.status === 'Rejected'}
                 >
                   Mark as Resolved
                 </button>
                 <button
                   className="status-btn rejected-btn"
                   onClick={() => handleUpdateStatus('Rejected')}
-                  disabled={updating || selectedComplaint.status === 'Rejected'}
+                  disabled={updating || selectedComplaint.status === 'Rejected' || selectedComplaint.status === 'Resolved'}
                 >
                   Reject
                 </button>

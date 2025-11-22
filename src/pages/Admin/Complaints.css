@@ -177,13 +177,13 @@
 }
 
 .status-pending {
-  background: #fff3cd;
-  color: #856404;
+  background: #ffe0b2;
+  color: #e65100;
 }
 
 .status-review {
-  background: #cce5ff;
-  color: #004085;
+  background: #b2ebf2;
+  color: #006064;
 }
 
 .status-resolved {
@@ -192,28 +192,23 @@
 }
 
 .status-rejected {
-  background: #f8d7da;
-  color: #721c24;
+  background: #ffcdd2;
+  color: #b71c1c;
 }
 
 .priority-low {
-  background: #d1ecf1;
-  color: #0c5460;
+  background: #cfe2ff;
+  color: #084298;
 }
 
 .priority-medium {
   background: #fff3cd;
-  color: #856404;
+  color: #997404;
 }
 
 .priority-high {
   background: #f8d7da;
-  color: #721c24;
-}
-
-.priority-critical {
-  background: #721c24;
-  color: white;
+  color: #842029;
 }
 
 .type-badge {
