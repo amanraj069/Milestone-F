@@ -130,6 +130,9 @@ const AdminComplaints = () => {
             onChange={(e) => setSearchTerm(e.target.value)}
           />
         </div>
+        <div className="search-stats">
+          <span>Total: {filteredComplaints.length}</span>
+        </div>
       </div>
 
       {/* Filters */}
@@ -160,9 +163,6 @@ const AdminComplaints = () => {
             <option value="Medium">Medium</option>
             <option value="High">High</option>
           </select>
-        </div>
-        <div className="filter-stats">
-          <span>Total: {filteredComplaints.length}</span>
         </div>
       </div>
 

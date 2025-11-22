@@ -1,4 +1,4 @@
-.admin-freelancers-container {
+.admin-employers-container {
   padding: 0;
 }
 
@@ -19,24 +19,6 @@
 .page-subtitle {
   color: #666;
   font-size: 1rem;
-}
-
-.refresh-btn {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.75rem 1.5rem;
-  background: #007bff;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 0.95rem;
-  transition: background 0.3s ease;
-}
-
-.refresh-btn:hover {
-  background: #0056b3;
 }
 
 .search-section {
@@ -80,7 +62,7 @@
 
 .loading-container,
 .error-container,
-.no-freelancers-container {
+.no-employers-container {
   text-align: center;
   padding: 4rem 2rem;
   background: white;
@@ -90,7 +72,7 @@
 
 .loading-container i,
 .error-container i,
-.no-freelancers-container i {
+.no-employers-container i {
   font-size: 3rem;
   margin-bottom: 1rem;
 }
@@ -103,7 +85,7 @@
   color: #dc3545;
 }
 
-.no-freelancers-container i {
+.no-employers-container i {
   color: #6c757d;
 }
 
@@ -117,23 +99,23 @@
   cursor: pointer;
 }
 
-.freelancers-table-container {
+.employers-table-container {
   background: white;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   overflow-x: auto;
 }
 
-.freelancers-table {
+.employers-table {
   width: 100%;
   border-collapse: collapse;
 }
 
-.freelancers-table thead {
+.employers-table thead {
   background: #f8f9fa;
 }
 
-.freelancers-table th {
+.employers-table th {
   padding: 1rem;
   text-align: left;
   font-weight: 600;
@@ -142,17 +124,17 @@
   white-space: nowrap;
 }
 
-.freelancers-table th:last-child {
+.employers-table th:last-child {
   text-align: center;
 }
 
-.freelancers-table td {
+.employers-table td {
   padding: 1rem;
   border-bottom: 1px solid #e0e0e0;
   vertical-align: middle;
 }
 
-.freelancers-table tbody tr:hover {
+.employers-table tbody tr:hover {
   background: #f8f9fa;
 }
 
@@ -166,25 +148,6 @@
 .name-cell {
   font-weight: 600;
   color: #333;
-}
-
-.rating-cell {
-  display: flex;
-  align-items: center;
-  gap: 0.25rem;
-}
-
-.rating-cell i {
-  color: #ffc107;
-}
-
-.rating-cell span {
-  font-weight: 600;
-  color: #333;
-}
-
-.center-cell {
-  text-align: center;
 }
 
 .action-buttons {
@@ -234,7 +197,7 @@
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  .admin-freelancers-container {
+  .admin-employers-container {
     padding: 1rem;
   }
 
@@ -253,7 +216,7 @@
     width: 100%;
   }
 
-  .freelancers-table-container {
+  .employers-table-container {
     overflow-x: scroll;
   }
 

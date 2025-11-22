@@ -2,6 +2,18 @@
   padding: 0;
 }
 
+.admin-complaints-container .page-header {
+  margin-bottom: 2rem;
+}
+
+.admin-complaints-container .search-section {
+  margin-bottom: 1.5rem;
+}
+
+.admin-complaints-container .filters-section {
+  margin-bottom: 2rem;
+}
+
 .page-header {
   display: flex;
   justify-content: space-between;
@@ -40,23 +52,29 @@
 }
 
 .search-section {
-  margin-bottom: 1.5rem;
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .search-bar {
+  flex: 1;
   display: flex;
   align-items: center;
   gap: 0.75rem;
   padding: 0.75rem 1rem;
   border: 1px solid #ddd;
   border-radius: 6px;
-  background: white;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background: #f8f9fa;
 }
 
 .search-bar i {
   color: #666;
-  font-size: 1rem;
 }
 
 .search-bar input {
@@ -65,11 +83,11 @@
   background: transparent;
   font-size: 0.95rem;
   outline: none;
-  color: #333;
 }
 
-.search-bar input::placeholder {
-  color: #999;
+.search-stats {
+  font-weight: 600;
+  color: #666;
 }
 
 .filters-section {
