@@ -28,13 +28,28 @@ const BlogSection = () => {
   const showPrev = currentIndex > 0;
   const showNext = currentIndex + 3 < blogs.length;
 
+  const getCategoryStyles = (category) => {
+    const map = {
+      'Productivity': 'bg-purple-50 text-purple-700 border-purple-100',
+      'Freelancing Tips': 'bg-emerald-50 text-emerald-700 border-emerald-100',
+      'Career Advice': 'bg-blue-50 text-blue-700 border-blue-100',
+      'Success Stories': 'bg-amber-50 text-amber-700 border-amber-100',
+      'Tools & Resources': 'bg-rose-50 text-rose-700 border-rose-100',
+      'Industry News': 'bg-slate-100 text-slate-700 border-slate-200',
+      'Remote Work': 'bg-cyan-50 text-cyan-700 border-cyan-100',
+      'Client Management': 'bg-indigo-50 text-indigo-700 border-indigo-100',
+      'Finance for Freelancers': 'bg-teal-50 text-teal-700 border-teal-100'
+    };
+    return map[category] || 'bg-navy-50 text-navy-700 border-navy-100';
+  };
+
   if (loading) {
     return (
-      <section className="py-20 bg-gray-50">
+      <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
-            <p className="mt-4 text-gray-600">Loading blogs...</p>
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-navy-600 mx-auto"></div>
+            <p className="mt-4 text-slate-500 font-medium">Loading insights...</p>
           </div>
         </div>
       </section>
@@ -42,98 +57,69 @@ const BlogSection = () => {
   }
 
   if (blogs.length === 0) {
-    return null; // Don't show section if no blogs
+    return null;
   }
 
   return (
-    <section className="py-20 bg-gray-50" id="blog">
+    <section className="py-24 bg-white" id="blog">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        {/* Section Header */}
-        <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">
-            Latest <span className="text-blue-600">Blog</span> Posts
-          </h2>
-          <p className="text-xl text-gray-600">
-            Insights and tips to excel in the freelancing world
-          </p>
+        <div className="flex flex-col md:flex-row items-end justify-between gap-8 mb-16">
+          <div className="max-w-2xl text-center md:text-left">
+            <span className="text-navy-600 font-bold tracking-widest uppercase text-xs">Resources</span>
+            <h2 className="text-4xl lg:text-5xl font-bold font-heading mt-4 text-slate-900 tracking-tight">
+              Latest <span className="text-navy-600">Insights</span>
+            </h2>
+            <p className="mt-4 text-lg text-slate-600">Expert advice on scaling your freelance career and finding the best talent.</p>
+          </div>
+          <Link to="/blogs" className="hidden md:flex text-sm font-bold text-navy-600 hover:text-navy-700 transition-colors items-center gap-2">
+            Read all posts <i className="fas fa-arrow-right text-[10px]"></i>
+          </Link>
         </div>
 
-        {/* Blog Grid */}
-        <div className="flex justify-center mb-8">
+        <div className="flex justify-center mb-12">
           <div className={`grid gap-8 w-full ${
             visibleBlogs.length === 1 
               ? 'grid-cols-1 max-w-md' 
               : visibleBlogs.length === 2 
-                ? 'grid-cols-1 md:grid-cols-2 max-w-3xl' 
+                ? 'grid-cols-1 md:grid-cols-2 max-w-4xl' 
                 : 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3'
           }`}>
             {visibleBlogs.map((blog) => (
               <Link
                 key={blog.blogId}
                 to={`/blogs/${blog.blogId}`}
-                className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 block no-underline cursor-pointer"
-                onClick={(e) => {
-                  console.log('Blog clicked:', blog.blogId);
-                }}
+                className="group bg-white rounded-3xl overflow-hidden border border-slate-100 shadow-xl shadow-slate-200/30 hover:shadow-2xl hover:border-navy-100 transition-all duration-500 block no-underline"
               >
-                {/* Blog Image */}
                 <div className="relative h-64 overflow-hidden">
                   <img
                     src={blog.imageUrl}
                     alt={blog.title}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover group-hover:scale-110 transition-all duration-700"
                     onError={(e) => {
                       e.target.src = '/assets/blog-default.jpg';
                     }}
                   />
-                  {/* Date Badge */}
-                  <div className="absolute bottom-4 right-4 bg-blue-600 text-white rounded-lg px-3 py-2 flex flex-col items-center justify-center font-semibold shadow-lg">
-                    <span className="text-2xl leading-none">
-                      {new Date(blog.createdAt).getDate()}
-                    </span>
-                    <span className="text-xs uppercase leading-none mt-1">
-                      {new Date(blog.createdAt)
-                        .toLocaleString('en-US', { month: 'short' })
-                        .toUpperCase()}
+                  <div className="absolute top-4 left-4">
+                    <span className={`px-3 py-1.5 backdrop-blur-md border rounded-xl text-[10px] font-bold uppercase tracking-wider shadow-sm ${getCategoryStyles(blog.category)}`}>
+                      {blog.category}
                     </span>
                   </div>
                 </div>
 
-                {/* Blog Content */}
-                <div className="p-6">
-                  {/* Category */}
-                  <div className="inline-block mb-3">
-                    <span className="px-3 py-1 bg-blue-100 text-blue-600 rounded-full text-xs font-semibold uppercase tracking-wide">
-                      {blog.category}
-                    </span>
-                  </div>
-
-                  {/* Title */}
-                  <h3 className="text-xl font-bold text-gray-900 mb-3 line-clamp-2 ">
+                <div className="p-8">
+                  <h3 className="text-xl font-bold font-heading text-slate-900 mb-3 line-clamp-2 group-hover:text-navy-600 transition-colors">
                     {blog.title}
                   </h3>
-
-                  {/* Tagline */}
-                  <p className="text-gray-600 text-sm mb-4 line-clamp-3">
+                  <p className="text-slate-500 text-sm mb-6 line-clamp-3 leading-relaxed">
                     {blog.tagline}
                   </p>
-
-                  {/* Read More Text */}
-                  <div className="inline-flex items-center text-blue-600 font-semibold hover:text-blue-800 transition-colors group">
-                    Read More
-                    <svg
-                      className="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M9 5l7 7-7 7"
-                      />
-                    </svg>
+                  <div className="flex items-center justify-between">
+                    <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+                      {new Date(blog.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                    </div>
+                    <span className="text-xs font-bold text-navy-600 flex items-center gap-1 group-hover:gap-2 transition-all">
+                      Read more <i className="fas fa-chevron-right text-[8px]"></i>
+                    </span>
                   </div>
                 </div>
               </Link>
@@ -141,93 +127,49 @@ const BlogSection = () => {
           </div>
         </div>
 
-        {/* Navigation Arrows */}
-        {(showPrev || showNext) && (
-          <div className="flex justify-center items-center gap-4 mb-8">
-              {showPrev && (
-                <button
-                  onClick={handlePrev}
-                  className="p-3 bg-white rounded-full shadow-lg hover:bg-blue-600 hover:text-white transition-all transform hover:scale-110"
-                  aria-label="Previous blogs"
-                >
-                  <svg
-                    className="w-6 h-6"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M15 19l-7-7 7-7"
-                    />
-                  </svg>
-                </button>
-              )}
+        <div className="flex flex-col items-center gap-8">
+          {(showPrev || showNext) && (
+            <div className="flex items-center gap-4">
+              <button
+                onClick={handlePrev}
+                disabled={!showPrev}
+                className={`w-12 h-12 rounded-xl flex items-center justify-center border transition-all ${
+                  showPrev 
+                    ? 'border-slate-200 text-slate-600 hover:bg-navy-600 hover:text-white hover:border-navy-600' 
+                    : 'border-slate-100 text-slate-300 cursor-not-allowed'
+                }`}
+              >
+                <i className="fas fa-chevron-left"></i>
+              </button>
 
-              {/* Pagination Dots */}
               <div className="flex gap-2">
-                {Array.from({ length: Math.ceil(blogs.length / 3) }).map(
-                  (_, idx) => (
-                    <button
-                      key={idx}
-                      onClick={() => setCurrentIndex(idx * 3)}
-                      className={`w-3 h-3 rounded-full transition-all ${
-                        Math.floor(currentIndex / 3) === idx
-                          ? 'bg-blue-600 w-8'
-                          : 'bg-gray-300 hover:bg-gray-400'
-                      }`}
-                      aria-label={`Go to slide ${idx + 1}`}
-                    />
-                  )
-                )}
+                {Array.from({ length: Math.ceil(blogs.length / 3) }).map((_, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => setCurrentIndex(idx * 3)}
+                    className={`w-2 h-2 rounded-full transition-all ${
+                      Math.floor(currentIndex / 3) === idx ? 'bg-navy-600 w-6' : 'bg-slate-200'
+                    }`}
+                  />
+                ))}
               </div>
 
-              {showNext && (
-                <button
-                  onClick={handleNext}
-                  className="p-3 bg-white rounded-full shadow-lg hover:bg-blue-600 hover:text-white transition-all transform hover:scale-110"
-                  aria-label="Next blogs"
-                >
-                  <svg
-                    className="w-6 h-6"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M9 5l7 7-7 7"
-                    />
-                  </svg>
-                </button>
-              )}
+              <button
+                onClick={handleNext}
+                disabled={!showNext}
+                className={`w-12 h-12 rounded-xl flex items-center justify-center border transition-all ${
+                  showNext 
+                    ? 'border-slate-200 text-slate-600 hover:bg-navy-600 hover:text-white hover:border-navy-600' 
+                    : 'border-slate-100 text-slate-300 cursor-not-allowed'
+                }`}
+              >
+                <i className="fas fa-chevron-right"></i>
+              </button>
             </div>
           )}
-
-        {/* View All Blogs Link */}
-        <div className="text-center mt-8">
-          <Link
-            to="/blogs"
-            className="inline-flex items-center px-8 py-3 bg-blue-600 text-white rounded-full font-semibold hover:bg-blue-700 transition-all transform hover:scale-105 shadow-lg hover:shadow-xl"
-          >
-            View All Blog Posts
-            <svg
-              className="w-5 h-5 ml-2"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M17 8l4 4m0 0l-4 4m4-4H3"
-              />
-            </svg>
+          
+          <Link to="/blogs" className="md:hidden w-full px-8 py-4 bg-slate-900 text-white rounded-2xl font-bold text-center">
+            View All Posts
           </Link>
         </div>
       </div>

@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useAuth } from '../../context/AuthContext';
 import { fetchAllBlogs, fetchFeaturedBlog } from '../../redux/slices/blogSlice';
 import Footer from './Footer';
+import Navbar from '../Navbar';
 import SolrSearchBar from '../search/SolrSearchBar';
 
 const BlogList = () => {
@@ -13,6 +14,15 @@ const BlogList = () => {
   const { blogs: allBlogs, featuredBlog, loading } = useSelector((state) => state.blog);
   const [activeCategory, setActiveCategory] = useState('All');
   const [searchTerm, setSearchTerm] = useState('');
+  const scrollContainerRef = useRef(null);
+  const resultsRef = useRef(null);
+
+  // Auto-scroll to results when searching
+  useEffect(() => {
+    if (searchTerm.trim() && resultsRef.current) {
+      resultsRef.current.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
+    }
+  }, [searchTerm]);
 
   const categories = [
     'All',
@@ -21,7 +31,10 @@ const BlogList = () => {
     'Productivity',
     'Success Stories',
     'Tools & Resources',
-    'Industry News'
+    'Industry News',
+    'Remote Work',
+    'Client Management',
+    'Finance for Freelancers'
   ];
 
   useEffect(() => {
@@ -56,232 +69,164 @@ const BlogList = () => {
     });
   };
 
+  const scroll = (direction) => {
+    if (scrollContainerRef.current) {
+      const scrollAmount = 300;
+      scrollContainerRef.current.scrollBy({
+        left: direction === 'left' ? -scrollAmount : scrollAmount,
+        behavior: 'smooth'
+      });
+    }
+  };
+
+  const getCategoryStyles = (category) => {
+    const map = {
+      'Productivity': 'bg-purple-50 text-purple-700 border-purple-100',
+      'Freelancing Tips': 'bg-emerald-50 text-emerald-700 border-emerald-100',
+      'Career Advice': 'bg-blue-50 text-blue-700 border-blue-100',
+      'Success Stories': 'bg-amber-50 text-amber-700 border-amber-100',
+      'Tools & Resources': 'bg-rose-50 text-rose-700 border-rose-100',
+      'Industry News': 'bg-slate-100 text-slate-700 border-slate-200',
+      'Remote Work': 'bg-cyan-50 text-cyan-700 border-cyan-100',
+      'Client Management': 'bg-indigo-50 text-indigo-700 border-indigo-100',
+      'Finance for Freelancers': 'bg-teal-50 text-teal-700 border-teal-100'
+    };
+    return map[category] || 'bg-navy-50 text-navy-700 border-navy-100';
+  };
+
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+      <div className="min-h-screen flex flex-col items-center justify-center bg-slate-50">
+        <div className="w-12 h-12 border-4 border-navy-600 border-t-transparent rounded-full animate-spin mb-4"></div>
+        <p className="text-slate-500 font-bold uppercase tracking-widest text-[10px]">Loading insights...</p>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <header className="bg-white/95 backdrop-blur-md border-b border-gray-200 fixed top-0 left-0 right-0 z-50">
-        <div className="max-w-7xl mx-auto px-8">
-          <div className="flex items-center justify-between py-4">
-            <div className="text-4xl font-bold text-gray-900">
-              <Link to="/" className="hover:text-navy-700 transition-colors no-underline">
-                Mile<span className="text-navy-700">stone</span>
-              </Link>
-            </div>
+    <div className="min-h-screen bg-white font-sans text-slate-900 selection:bg-navy-100 selection:text-navy-900">
+      <Navbar 
+        forceSolid={true}
+        searchBar={
+          <SolrSearchBar
+            query={searchTerm}
+            onQueryChange={setSearchTerm}
+            type="blogs"
+            hideToggle={true}
+            onSearch={(query) => {
+              if (query.trim()) {
+                navigate(`/search?q=${encodeURIComponent(query)}&type=blogs`);
+              }
+            }}
+          />
+        }
+      />
 
-            <div className="flex items-center gap-4">
-              {user ? (
-                <Link
-                  to={getDashboardRoute()}
-                  className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-navy-950 via-navy-900 to-navy-800 text-white rounded-lg font-medium no-underline transition-all hover:shadow-lg hover:-translate-y-0.5"
-                >
-                  <i className="fas fa-th-large"></i>
-                  Dashboard
-                </Link>
-              ) : (
-                <Link
-                  to="/login"
-                  className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-navy-950 via-navy-900 to-navy-800 text-white rounded-lg font-medium no-underline transition-all hover:shadow-lg hover:-translate-y-0.5"
-                >
-                  <i className="fas fa-sign-in-alt"></i>
-                  Sign In
-                </Link>
-              )}
-            </div>
-          </div>
-        </div>
-      </header>
-
-      <div className="pt-20">
+      <div className="pt-24">
         {/* Hero Section */}
-        <section className="relative z-20 py-12 overflow-visible bg-gradient-to-br from-indigo-50 via-white to-purple-50">
-          <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
-          <div className="container mx-auto px-4 relative z-10">
-            <div className="max-w-4xl mx-auto text-center">
-              <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-                Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600">Blog</span>
-              </h1>
-              <p className="text-lg text-gray-600 mb-6">
-                Insights, stories, and tips for freelancers and employers
-              </p>
-
-              {/* Search Bar */}
-              <div className="max-w-2xl mx-auto relative z-40 text-black">
-                <SolrSearchBar
-                  query={searchTerm}
-                  onQueryChange={setSearchTerm}
-                  type="blogs"
-                  hideToggle={true}
-                  onSearch={(query) => {
-                    if (query.trim()) {
-                      navigate(`/search?q=${encodeURIComponent(query)}&type=blogs`);
-                    }
-                  }}
-                />
-              </div>
+        <section className="relative py-20 overflow-hidden bg-slate-50">
+          <div className="max-w-7xl mx-auto px-6 lg:px-8 text-center relative z-10">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-navy-50 border border-navy-100 mb-6">
+              <span className="text-[10px] font-bold text-navy-900 uppercase tracking-widest">Platform Resources</span>
             </div>
+            <h1 className="text-4xl lg:text-6xl font-bold font-heading text-slate-900 tracking-tight leading-tight mb-6">
+              The <span className="text-navy-600">Milestone</span> Blog
+            </h1>
+            <p className="text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
+              Insights, stories, and expert tips to help you scale your business and career in the freelance economy.
+            </p>
           </div>
         </section>
 
         {/* Featured Blog */}
         {featuredBlog && (
-          <section className="py-16 bg-white relative">
+          <section className="py-24 bg-white">
+            <div className="max-w-7xl mx-auto px-6 lg:px-8">
+              <div className="flex items-center justify-between mb-12">
+                <h2 className="text-2xl font-bold font-heading text-slate-900">Editor's Choice</h2>
+                <div className="h-px flex-1 bg-slate-100 mx-8"></div>
+                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Featured Post</span>
+              </div>
 
-            <div className="container mx-auto px-4">
-              <div className="max-w-6xl mx-auto">
-                <div className="flex items-center justify-between mb-8">
-                  <h2 className="text-3xl font-bold text-gray-900">Featured Blog</h2>
-                  <span className="bg-yellow-400 text-gray-900 px-4 py-1 rounded-full text-sm font-semibold flex items-center gap-2">
-                    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                    </svg>
-                    Featured
-                  </span>
-                </div>
+              <Link to={`/blogs/${featuredBlog.blogId}`} className="group block">
+                <div className="grid lg:grid-cols-2 gap-0 bg-slate-50 rounded-[2.5rem] overflow-hidden border border-slate-100 group-hover:shadow-2xl group-hover:border-navy-100 transition-all duration-500">
+                  <div className="relative h-96 lg:h-full overflow-hidden">
+                    <img
+                      src={featuredBlog.imageUrl}
+                      alt={featuredBlog.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000"
+                    />
+                    <div className="absolute top-8 left-8">
+                      <span className={`backdrop-blur-md px-4 py-2 border rounded-xl text-xs font-bold uppercase tracking-wider shadow-xl ${getCategoryStyles(featuredBlog.category)}`}>
+                        {featuredBlog.category}
+                      </span>
+                    </div>
+                  </div>
 
-                <Link to={`/blogs/${featuredBlog.blogId}`} className="group block">
-                  <div className="grid md:grid-cols-2 gap-8 bg-gradient-to-br from-indigo-50 to-purple-50 rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300">
-                    <div className="relative h-96 overflow-hidden">
-                      <img
-                        src={featuredBlog.imageUrl}
-                        alt={featuredBlog.title}
-                        className="w-full h-full object-cover"
-                      />
-                      <div className="absolute top-4 left-4">
-                        <span className="bg-white text-indigo-600 px-4 py-2 rounded-full text-sm font-semibold shadow-lg">
-                          {featuredBlog.category}
-                        </span>
-                      </div>
+                  <div className="p-12 lg:p-20 flex flex-col justify-center">
+                    <div className="flex items-center gap-4 text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-6">
+                      <span className="flex items-center gap-2">
+                        <i className="far fa-calendar"></i>
+                        {formatDate(featuredBlog.createdAt)}
+                      </span>
+                      <span className="w-1 h-1 rounded-full bg-slate-300"></span>
+                      <span className="flex items-center gap-2">
+                        <i className="far fa-clock"></i>
+                        {featuredBlog.readTime} min read
+                      </span>
                     </div>
 
-                    <div className="p-8 flex flex-col justify-center">
-                      <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
-                        <span className="flex items-center gap-2">
-                          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                          </svg>
-                          {formatDate(featuredBlog.createdAt)}
-                        </span>
-                        <span className="flex items-center gap-2">
-                          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                          </svg>
-                          {featuredBlog.readTime} min read
-                        </span>
+                    <h3 className="text-3xl lg:text-4xl font-bold font-heading text-slate-900 mb-6 group-hover:text-navy-600 transition-colors leading-tight">
+                      {featuredBlog.title}
+                    </h3>
+
+                    <p className="text-slate-600 mb-10 text-lg leading-relaxed line-clamp-3">
+                      {featuredBlog.tagline}
+                    </p>
+
+                    <div className="flex items-center gap-4 pt-8 border-t border-slate-200/50">
+                      <div className="w-12 h-12 bg-navy-600 rounded-2xl flex items-center justify-center text-white font-bold shadow-lg shadow-navy-600/20">
+                        {featuredBlog.author.split(' ').map(n => n[0]).join('')}
                       </div>
-
-                      <h3 className="text-3xl font-bold text-gray-900 mb-4 group-hover:text-indigo-600 transition-colors">
-                        {featuredBlog.title}
-                      </h3>
-
-                      <p className="text-gray-600 mb-6 line-clamp-3">
-                        {featuredBlog.tagline}
-                      </p>
-
-                      <div className="flex items-center gap-3">
-                        <div className="w-12 h-12 bg-indigo-600 rounded-full flex items-center justify-center text-white font-semibold">
-                          {featuredBlog.author.split(' ').map(n => n[0]).join('')}
-                        </div>
-                        <div>
-                          <p className="font-semibold text-gray-900">{featuredBlog.author}</p>
-                          <p className="text-sm text-gray-600">Author</p>
-                        </div>
+                      <div>
+                        <p className="font-bold text-slate-900">{featuredBlog.author}</p>
+                        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Platform Contributor</p>
                       </div>
                     </div>
                   </div>
-                </Link>
-              </div>
-            </div>
-          </section>
-        )}
-
-        {/* Recent Posts */}
-        {recentBlogs.length > 0 && (
-          <section className="py-16 bg-gray-50">
-            <div className="container mx-auto px-4">
-              <div className="max-w-6xl mx-auto">
-                <h2 className="text-3xl font-bold text-gray-900 mb-12 text-center">Recent Posts</h2>
-
-                <div className="flex justify-center">
-                  <div className={`grid gap-8 w-full ${recentBlogs.length === 1
-                      ? 'grid-cols-1 max-w-md'
-                      : recentBlogs.length === 2
-                        ? 'grid-cols-1 md:grid-cols-2 max-w-3xl'
-                        : 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3'
-                    }`}>
-                    {recentBlogs.map((blog) => (
-                      <Link
-                        key={blog.blogId}
-                        to={`/blogs/${blog.blogId}`}
-                        className="group bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 hover:-translate-y-2"
-                      >
-                        <div className="relative h-48 overflow-hidden">
-                          <img
-                            src={blog.imageUrl}
-                            alt={blog.title}
-                            className="w-full h-full object-cover"
-                          />
-                          <div className="absolute top-4 left-4">
-                            <span className="bg-white text-indigo-600 px-3 py-1 rounded-full text-xs font-semibold shadow-lg">
-                              {blog.category}
-                            </span>
-                          </div>
-                        </div>
-
-                        <div className="p-6">
-                          <div className="flex items-center gap-3 text-xs text-gray-600 mb-3">
-                            <span>{formatDate(blog.createdAt)}</span>
-                            <span>•</span>
-                            <span>{blog.readTime} min read</span>
-                          </div>
-
-                          <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:transition-colors line-clamp-2">
-                            {blog.title}
-                          </h3>
-
-                          <p className="text-gray-600 text-sm line-clamp-2 mb-4">
-                            {blog.tagline}
-                          </p>
-
-                          <div className="flex items-center gap-3 pt-4 border-t border-gray-100">
-                            <div className="w-10 h-10 bg-indigo-600 rounded-full flex items-center justify-center text-white font-semibold text-sm">
-                              {blog.author.split(' ').map(n => n[0]).join('')}
-                            </div>
-                            <div>
-                              <p className="font-medium text-gray-900 text-sm">{blog.author}</p>
-                            </div>
-                          </div>
-                        </div>
-                      </Link>
-                    ))}
-                  </div>
                 </div>
-              </div>
+              </Link>
             </div>
           </section>
         )}
 
         {/* Category Filter */}
-        <section className="py-16 bg-white">
-          <div className="container mx-auto px-4">
-            <div className="max-w-6xl mx-auto">
-              <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">Browse by Category</h2>
+        <section ref={resultsRef} className="py-24 bg-slate-50 border-y border-slate-100 scroll-mt-24">
+          <div className="max-w-7xl mx-auto px-6 lg:px-8">
+            <h2 className="text-2xl font-bold font-heading text-slate-900 mb-12 text-center">Explore Topics</h2>
 
-              <div className="flex flex-wrap gap-3 mb-12">
+            {/* Scrollable Categories Container */}
+            <div className="relative mb-20 group">
+              {/* Left Arrow */}
+              <button 
+                onClick={() => scroll('left')}
+                className="absolute left-0 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-white rounded-full border border-slate-100 shadow-xl flex items-center justify-center text-slate-400 hover:text-navy-600 transition-all opacity-0 group-hover:opacity-100 -translate-x-6 hover:-translate-x-7 active:scale-95"
+              >
+                <i className="fas fa-chevron-left text-sm"></i>
+              </button>
+
+              {/* Categories Scroll Area */}
+              <div 
+                ref={scrollContainerRef}
+                className="flex items-center gap-3 overflow-x-auto no-scrollbar scroll-smooth px-2 py-4"
+              >
                 {categories.map((category) => (
                   <button
                     key={category}
                     onClick={() => setActiveCategory(category)}
-                    className={`px-6 py-2 rounded-full font-medium transition-all ${activeCategory === category
-                        ? 'bg-indigo-600 text-white shadow-lg'
-                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                    className={`whitespace-nowrap px-8 py-3.5 rounded-2xl text-xs font-bold uppercase tracking-widest transition-all ${activeCategory === category
+                        ? 'bg-navy-600 text-white shadow-xl shadow-navy-600/20 border-transparent'
+                        : 'bg-white text-slate-500 border border-slate-100 hover:border-navy-600 hover:text-navy-600'
                       }`}
                   >
                     {category}
@@ -289,77 +234,68 @@ const BlogList = () => {
                 ))}
               </div>
 
-              {/* All Posts Grid */}
-              <div className="flex justify-center">
-                <div className={`grid gap-8 w-full ${filteredBlogs.length === 1
-                    ? 'grid-cols-1 max-w-md'
-                    : filteredBlogs.length === 2
-                      ? 'grid-cols-1 md:grid-cols-2 max-w-3xl'
-                      : 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3'
-                  }`}>
-                  {filteredBlogs.map((blog) => (
-                    <Link
-                      key={blog.blogId}
-                      to={`/blogs/${blog.blogId}`}
-                      className="group bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 hover:-translate-y-2"
-                    >
-                      <div className="relative h-48 overflow-hidden">
-                        <img
-                          src={blog.imageUrl}
-                          alt={blog.title}
-                          className="w-full h-full object-cover"
-                        />
-                        <div className="absolute top-4 left-4">
-                          <span className="bg-white text-indigo-600 px-3 py-1 rounded-full text-xs font-semibold shadow-lg">
-                            {blog.category}
-                          </span>
-                        </div>
-                        {blog.featured && (
-                          <div className="absolute top-4 right-4">
-                            <span className="bg-yellow-400 text-gray-900 p-2 rounded-full shadow-lg">
-                              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                              </svg>
-                            </span>
-                          </div>
-                        )}
-                      </div>
-
-                      <div className="p-6">
-                        <div className="flex items-center gap-3 text-xs text-gray-600 mb-3">
-                          <span>{formatDate(blog.createdAt)}</span>
-                          <span>•</span>
-                          <span>{blog.readTime} min read</span>
-                        </div>
-
-                        <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover: transition-colors line-clamp-2">
-                          {blog.title}
-                        </h3>
-
-                        <p className="text-gray-600 text-sm line-clamp-2 mb-4">
-                          {blog.tagline}
-                        </p>
-
-                        <div className="flex items-center gap-3 pt-4 border-t border-gray-100">
-                          <div className="w-10 h-10 bg-indigo-600 rounded-full flex items-center justify-center text-white font-semibold text-sm">
-                            {blog.author.split(' ').map(n => n[0]).join('')}
-                          </div>
-                          <div>
-                            <p className="font-medium text-gray-900 text-sm">{blog.author}</p>
-                          </div>
-                        </div>
-                      </div>
-                    </Link>
-                  ))}
-                </div>
-              </div>
-
-              {filteredBlogs.length === 0 && (
-                <div className="text-center py-12">
-                  <p className="text-gray-600 text-lg">No blogs found in this category.</p>
-                </div>
-              )}
+              {/* Right Arrow */}
+              <button 
+                onClick={() => scroll('right')}
+                className="absolute right-0 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-white rounded-full border border-slate-100 shadow-xl flex items-center justify-center text-slate-400 hover:text-navy-600 transition-all opacity-0 group-hover:opacity-100 translate-x-6 hover:translate-x-7 active:scale-95"
+              >
+                <i className="fas fa-chevron-right text-sm"></i>
+              </button>
             </div>
+
+            {/* Posts Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {filteredBlogs.map((blog) => (
+                <Link
+                  key={blog.blogId}
+                  to={`/blogs/${blog.blogId}`}
+                  className="group bg-white rounded-[2rem] border border-slate-100 overflow-hidden hover:shadow-2xl hover:border-navy-100 transition-all duration-500 flex flex-col"
+                >
+                  <div className="relative h-64 overflow-hidden">
+                    <img
+                      src={blog.imageUrl}
+                      alt={blog.title}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                    />
+                    <div className="absolute top-6 left-6">
+                      <span className={`backdrop-blur-md px-3 py-1.5 border rounded-xl text-[10px] font-bold uppercase tracking-wider shadow-sm ${getCategoryStyles(blog.category)}`}>
+                        {blog.category}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="p-8 flex-1 flex flex-col">
+                    <div className="flex items-center gap-3 text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-4">
+                      <span>{formatDate(blog.createdAt)}</span>
+                      <span className="w-1 h-1 rounded-full bg-slate-300"></span>
+                      <span>{blog.readTime} min read</span>
+                    </div>
+
+                    <h3 className="text-xl font-bold font-heading text-slate-900 mb-4 group-hover:text-navy-600 transition-colors line-clamp-2">
+                      {blog.title}
+                    </h3>
+
+                    <p className="text-slate-500 text-sm leading-relaxed mb-8 line-clamp-2">
+                      {blog.tagline}
+                    </p>
+
+                    <div className="mt-auto flex items-center gap-3 pt-6 border-t border-slate-50">
+                      <div className="w-10 h-10 bg-slate-100 rounded-xl flex items-center justify-center text-navy-600 font-bold text-xs">
+                        {blog.author.split(' ').map(n => n[0]).join('')}
+                      </div>
+                      <p className="text-xs font-bold text-slate-700">{blog.author}</p>
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+
+            {filteredBlogs.length === 0 && (
+              <div className="text-center py-24 bg-white rounded-[2.5rem] border border-slate-100">
+                <i className="fas fa-search text-3xl text-slate-200 mb-4 block"></i>
+                <p className="text-slate-500 font-bold uppercase tracking-widest text-xs">No articles found in this category.</p>
+              </div>
+            )}
           </div>
         </section>
       </div>

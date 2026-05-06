@@ -21,6 +21,7 @@ export default {
       },
       fontFamily: {
         sans: ["Inter", "system-ui", "sans-serif"],
+        heading: ["Outfit", "Inter", "system-ui", "sans-serif"],
       },
     },
   },
