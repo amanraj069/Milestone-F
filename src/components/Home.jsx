@@ -63,19 +63,14 @@ const Home = () => {
                 </Link>
               </div>
 
-              <div className="mt-12 flex items-center justify-center lg:justify-start gap-8 opacity-50 grayscale">
-                <span className="font-semibold text-xl">INFOSYS</span>
-                <span className="font-semibold text-xl">WIPRO</span>
-                <span className="font-semibold text-xl">ZOMATO</span>
-              </div>
             </div>
 
             {/* Right Image */}
-            <div className="relative animate-scale-in w-full max-w-[680px] lg:justify-self-end">
+            <div className="relative animate-scale-in w-full max-w-[750px] lg:justify-self-end">
               <img 
                 src="/assets/home/Freelancer-bro.svg" 
                 alt="Freelancer working illustration" 
-                className="w-full h-[320px] sm:h-[380px] lg:h-[560px] object-contain"
+                className="w-full h-[360px] sm:h-[420px] lg:h-[620px] xl:h-[680px] object-contain lg:scale-110"
               />
             </div>
           </div>
@@ -83,18 +78,19 @@ const Home = () => {
       </section>
 
       {/* Stats Bar */}
-      <section className="py-12 bg-slate-900 text-white border-y border-slate-800">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
+      <section className="py-16 lg:py-24 bg-[#0B0F19] text-white relative overflow-hidden">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[300px] bg-blue-600/20 blur-[120px] pointer-events-none rounded-full"></div>
+        <div className="relative max-w-7xl mx-auto px-6 lg:px-8 z-10">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
             {[
               { label: 'Active Talent', value: '10K+' },
               { label: 'Projects Completed', value: '5K+' },
               { label: 'Success Rate', value: '99%' },
               { label: 'Avg. Rating', value: '4.9/5' }
             ].map((stat, i) => (
-              <div key={i} className="text-center lg:text-left">
-                <div className="text-3xl font-bold text-white mb-1">{stat.value}</div>
-                <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{stat.label}</div>
+              <div key={i} className="text-center flex flex-col items-center justify-center">
+                <div className="text-4xl lg:text-5xl font-extrabold text-white mb-3 tracking-tight">{stat.value}</div>
+                <div className="text-xs font-bold text-blue-200/70 uppercase tracking-widest">{stat.label}</div>
               </div>
             ))}
           </div>
