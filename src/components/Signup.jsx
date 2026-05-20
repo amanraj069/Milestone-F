@@ -362,15 +362,15 @@ const Signup = () => {
   };
 
   return (
-    <div className="min-h-dvh flex items-center justify-center bg-gradient-to-br from-navy-50 to-navy-100 p-3 sm:p-5">
+    <div className="min-h-dvh flex items-center justify-center bg-gradient-to-br from-blue-50 to-blue-100 p-3 sm:p-5">
       <div className="flex max-w-5xl w-full bg-white rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl md:min-h-[600px] border border-gray-100">
         {/* Left Side - Form */}
         <div className="w-full md:flex-1 p-5 sm:p-8 lg:p-12 flex items-center justify-center bg-white">
           <div className="w-full max-w-sm">
             {/* Step Indicator */}
             <div className="text-center mb-6 sm:mb-8">
-              <div className="inline-flex items-center gap-1 bg-gradient-to-r from-navy-50 to-navy-100 px-4 py-2 rounded-full text-sm font-medium text-gray-600 border border-gray-200">
-                <span className="text-navy-700 font-bold">{currentStep}</span>
+              <div className="inline-flex items-center gap-1 bg-gradient-to-r from-blue-50 to-blue-100 px-4 py-2 rounded-full text-sm font-medium text-gray-600 border border-gray-200">
+                <span className="text-blue-700 font-bold">{currentStep}</span>
                 <span className="text-gray-500">of 3</span>
               </div>
             </div>
@@ -406,7 +406,7 @@ const Signup = () => {
                           ? 'border-rose-400 focus:border-rose-500 focus:ring-4 focus:ring-rose-50' 
                           : formData.name.trim().length >= 2 
                             ? 'border-emerald-400 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-50' 
-                            : 'border-gray-300 focus:border-navy-500 focus:ring-4 focus:ring-navy-50'
+                            : 'border-gray-300 focus:border-blue-500 focus:ring-4 focus:ring-blue-50'
                       }`}
                     />
                     {fieldErrors.name && (
@@ -430,7 +430,7 @@ const Signup = () => {
                           ? 'border-rose-400 focus:border-rose-500 focus:ring-4 focus:ring-rose-50' 
                           : formData.email && /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(formData.email) 
                             ? 'border-emerald-400 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-50' 
-                            : 'border-gray-300 focus:border-navy-500 focus:ring-4 focus:ring-navy-50'
+                            : 'border-gray-300 focus:border-blue-500 focus:ring-4 focus:ring-blue-50'
                       }`}
                     />
                     {fieldErrors.email && (
@@ -451,7 +451,7 @@ const Signup = () => {
                           ? 'border-rose-400 focus:border-rose-500 focus:ring-rose-50' 
                           : formData.role
                             ? 'border-emerald-400 focus:border-emerald-500 focus:ring-emerald-50'
-                            : 'border-gray-300 focus:border-navy-700 focus:ring-navy-100'
+                            : 'border-gray-300 focus:border-blue-700 focus:ring-blue-100'
                       }`}
                     >
                       <option value="">Select role</option>
@@ -467,7 +467,7 @@ const Signup = () => {
                     )}
                   </div>
 
-                  <button type="submit" disabled={loading} className="px-5 sm:px-6 py-3 sm:py-3.5 rounded-lg font-semibold cursor-pointer transition-all text-[15px] sm:text-base inline-flex items-center justify-center gap-2 bg-gradient-to-r from-navy-950 via-navy-900 to-navy-800 text-white w-full hover:from-navy-900 hover:via-navy-800 hover:to-navy-700 hover:shadow-lg hover:-translate-y-0.5 disabled:opacity-60 disabled:cursor-not-allowed">
+                  <button type="submit" disabled={loading} className="px-5 sm:px-6 py-3 sm:py-3.5 rounded-lg font-semibold cursor-pointer transition-all text-[15px] sm:text-base inline-flex items-center justify-center gap-2 bg-gradient-to-r from-blue-950 via-blue-900 to-blue-800 text-white w-full hover:from-blue-900 hover:via-blue-800 hover:to-blue-700 hover:shadow-lg hover:-translate-y-0.5 disabled:opacity-60 disabled:cursor-not-allowed">
                     {loading ? (
                       <>
                         <i className="fas fa-spinner fa-spin"></i>
@@ -497,15 +497,15 @@ const Signup = () => {
                   <p className="text-sm sm:text-base text-gray-600">Create a strong password to protect your account</p>
                 </div>
 
-                <div className="bg-gradient-to-r from-navy-50 to-navy-100 border border-gray-200 rounded-xl p-4 mb-6 flex items-center justify-between shadow-sm">
+                <div className="bg-gradient-to-r from-blue-50 to-blue-100 border border-gray-200 rounded-xl p-4 mb-6 flex items-center justify-between shadow-sm">
                   <div className="flex items-center gap-6">
-                    <div className="w-12 h-12 bg-gradient-to-br from-navy-950 to-navy-800 rounded-full flex items-center justify-center text-white text-lg">
+                    <div className="w-12 h-12 bg-gradient-to-br from-blue-950 to-blue-800 rounded-full flex items-center justify-center text-white text-lg">
                       <i className="fas fa-user"></i>
                     </div>
                     <div>
                       <div className="text-base font-semibold text-gray-900 mb-0.5">{formData.name}</div>
                       <div className="text-sm text-gray-600 mb-0.5">{formData.email}</div>
-                      <div className="text-xs text-navy-700 font-medium bg-navy-50 py-0.5 rounded-xl inline-block">{formData.role}</div>
+                      <div className="text-xs text-blue-700 font-medium bg-blue-50 py-0.5 rounded-xl inline-block">{formData.role}</div>
                     </div>
                   </div>
                 </div>
@@ -537,8 +537,8 @@ const Signup = () => {
                               /[A-Z]/.test(formData.password) && 
                               /[0-9]/.test(formData.password) && 
                               /[!@#$%^&*(),.?":{}|<>]/.test(formData.password)
-                              ? 'border-emerald-400 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-50' 
-                              : 'border-gray-300 focus:border-navy-500 focus:ring-4 focus:ring-navy-50'
+                              ? 'border-emerald-400' 
+                              : 'border-gray-300 focus:border-blue-500 focus:ring-4 focus:ring-blue-50'
                         }`}
                       />
                       <button
@@ -575,7 +575,7 @@ const Signup = () => {
                             ? 'border-rose-400 focus:border-rose-500 focus:ring-4 focus:ring-rose-50' 
                             : formData.confirmPassword && formData.confirmPassword === formData.password
                               ? 'border-emerald-400 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-50' 
-                              : 'border-gray-300 focus:border-navy-500 focus:ring-4 focus:ring-navy-50'
+                              : 'border-gray-300 focus:border-blue-500 focus:ring-4 focus:ring-blue-50'
                         }`}
                       />
                       <button
@@ -594,11 +594,11 @@ const Signup = () => {
                   </div>
 
                   <div className="flex gap-3 mt-6">
-                    <button type="button" onClick={handlePrevStep} className="px-5 sm:px-6 py-3 sm:py-3.5 rounded-lg font-semibold cursor-pointer transition-all text-[15px] sm:text-base inline-flex items-center justify-center gap-2 bg-transparent border-2 border-navy-700 text-navy-700 hover:bg-navy-700 hover:text-white hover:-translate-y-0.5 flex-none min-w-[96px] sm:min-w-[100px]">
+                    <button type="button" onClick={handlePrevStep} className="px-5 sm:px-6 py-3 sm:py-3.5 rounded-lg font-semibold cursor-pointer transition-all text-[15px] sm:text-base inline-flex items-center justify-center gap-2 bg-transparent border-2 border-blue-700 text-blue-700 hover:bg-blue-700 hover:text-white hover:-translate-y-0.5 flex-none min-w-[96px] sm:min-w-[100px]">
                       <i className="fas fa-arrow-left"></i>
                       <span>Back</span>
                     </button>
-                    <button type="submit" disabled={loading} className="flex-1 px-5 sm:px-6 py-3 sm:py-3.5 rounded-lg font-semibold cursor-pointer transition-all text-[15px] sm:text-base inline-flex items-center justify-center gap-2 bg-gradient-to-r from-navy-950 via-navy-900 to-navy-800 text-white hover:from-navy-900 hover:via-navy-800 hover:to-navy-700 hover:shadow-lg hover:-translate-y-0.5 disabled:opacity-60 disabled:cursor-not-allowed disabled:transform-none">
+                    <button type="submit" disabled={loading} className="flex-1 px-5 sm:px-6 py-3 sm:py-3.5 rounded-lg font-semibold cursor-pointer transition-all text-[15px] sm:text-base inline-flex items-center justify-center gap-2 bg-gradient-to-r from-blue-950 via-blue-900 to-blue-800 text-white hover:from-blue-900 hover:via-blue-800 hover:to-blue-700 hover:shadow-lg hover:-translate-y-0.5 disabled:opacity-60 disabled:cursor-not-allowed disabled:transform-none">
                       {loading ? (
                         <>
                           <i className="fas fa-spinner fa-spin"></i>
@@ -648,9 +648,9 @@ const Signup = () => {
                           maxLength={1}
                           className={`w-10 h-12 sm:w-12 sm:h-14 border-2 rounded-lg text-lg sm:text-xl bg-white transition-all outline-none text-gray-900 text-center font-bold ${
                             digit 
-                              ? 'border-navy-500 bg-navy-50' 
-                              : 'border-gray-300'
-                          } focus:border-navy-600 focus:ring-4 focus:ring-navy-100`}
+                                ? 'border-blue-500 bg-blue-50' 
+                                : 'border-gray-300'
+                              } focus:border-blue-600 focus:ring-4 focus:ring-blue-100`}
                         />
                       ))}
                     </div>
@@ -663,7 +663,7 @@ const Signup = () => {
                     type="button" 
                     onClick={handleVerifyOtp} 
                     disabled={loading || formData.otp.length !== 6}
-                    className="px-5 sm:px-6 py-3 sm:py-3.5 rounded-lg font-semibold cursor-pointer transition-all text-[15px] sm:text-base inline-flex items-center justify-center gap-2 bg-gradient-to-r from-navy-950 via-navy-900 to-navy-800 text-white w-full hover:from-navy-900 hover:via-navy-800 hover:to-navy-700 hover:shadow-lg hover:-translate-y-0.5 disabled:opacity-60 disabled:cursor-not-allowed"
+                    className="px-5 sm:px-6 py-3 sm:py-3.5 rounded-lg font-semibold cursor-pointer transition-all text-[15px] sm:text-base inline-flex items-center justify-center gap-2 bg-gradient-to-r from-blue-950 via-blue-900 to-blue-800 text-white w-full hover:from-blue-900 hover:via-blue-800 hover:to-blue-700 hover:shadow-lg hover:-translate-y-0.5 disabled:opacity-60 disabled:cursor-not-allowed"
                   >
                     {loading ? (
                       <>
@@ -693,7 +693,7 @@ const Signup = () => {
                   <button 
                     type="button" 
                     onClick={handlePrevStep} 
-                    className="px-5 sm:px-6 py-3 sm:py-3.5 rounded-lg font-semibold cursor-pointer transition-all text-[15px] sm:text-base inline-flex items-center justify-center gap-2 bg-transparent border-2 border-navy-700 text-navy-700 hover:bg-navy-700 hover:text-white hover:-translate-y-0.5"
+                    className="px-5 sm:px-6 py-3 sm:py-3.5 rounded-lg font-semibold cursor-pointer transition-all text-[15px] sm:text-base inline-flex items-center justify-center gap-2 bg-transparent border-2 border-blue-700 text-blue-700 hover:bg-blue-700 hover:text-white hover:-translate-y-0.5"
                   >
                     <i className="fas fa-arrow-left"></i>
                     <span>Back to Password</span>
@@ -705,7 +705,7 @@ const Signup = () => {
         </div>
 
         {/* Right Side - Branding */}
-        <div className="hidden md:flex md:flex-1 bg-gradient-to-br from-navy-950 via-navy-900 to-navy-800 text-white px-12 py-16 items-center justify-center relative overflow-hidden">
+        <div className="hidden md:flex md:flex-1 bg-gradient-to-br from-blue-950 via-blue-900 to-blue-800 text-white px-12 py-16 items-center justify-center relative overflow-hidden">
           <div className="absolute inset-0 opacity-10" style={{
             background: 'radial-gradient(circle at 30% 40%, rgba(255, 255, 255, 0.2) 0%, transparent 50%), radial-gradient(circle at 70% 80%, rgba(255, 255, 255, 0.15) 0%, transparent 50%)'
           }}></div>

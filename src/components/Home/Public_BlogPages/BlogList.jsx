@@ -86,7 +86,7 @@ const BlogList = () => {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
       </div>
     );
   }
@@ -99,7 +99,7 @@ const BlogList = () => {
           <div className="flex justify-between items-center h-16">
             {/* Logo */}
             <div className="flex-shrink-0">
-              <a href="/" className="text-2xl font-bold text-indigo-600">
+              <a href="/" className="text-2xl font-bold text-blue-600">
                 FreelanceHub
               </a>
             </div>
@@ -110,14 +110,14 @@ const BlogList = () => {
               {user ? (
                 <a
                   href={getDashboardRoute()}
-                  className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition-colors"
+                  className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
                 >
                   Dashboard
                 </a>
               ) : (
                 <a
                   href="/login"
-                  className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition-colors"
+                  className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
                 >
                   Sign In
                 </a>
@@ -129,12 +129,12 @@ const BlogList = () => {
 
       <div className="pt-20">
         {/* Hero Section */}
-      <section className="relative z-20 py-20 overflow-visible bg-gradient-to-br from-indigo-50 via-white to-purple-50">
+      <section className="relative z-20 py-20 overflow-visible bg-gradient-to-br from-blue-50 via-white to-blue-100">
         <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
-              Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600">Blog</span>
+              Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-blue-700">Blog</span>
             </h1>
             <p className="text-xl text-gray-600 mb-8">
               Insights, stories, and tips for freelancers and employers
@@ -170,7 +170,7 @@ const BlogList = () => {
               </div>
 
               <Link to={`/blogs/${featuredBlog.blogId}`} className="group block">
-                <div className="grid md:grid-cols-2 gap-8 bg-gradient-to-br from-indigo-50 to-purple-50 rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300">
+                <div className="grid md:grid-cols-2 gap-8 bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300">
                   <div className="relative h-96 overflow-hidden">
                     <img 
                       src={featuredBlog.imageUrl} 
@@ -178,7 +178,7 @@ const BlogList = () => {
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                     />
                     <div className="absolute top-4 left-4">
-                      <span className="bg-white text-indigo-600 px-4 py-2 rounded-full text-sm font-semibold shadow-lg">
+                      <span className="bg-white text-blue-600 px-4 py-2 rounded-full text-sm font-semibold shadow-lg">
                         {featuredBlog.category}
                       </span>
                     </div>
@@ -200,7 +200,7 @@ const BlogList = () => {
                       </span>
                     </div>
                     
-                    <h3 className="text-3xl font-bold text-gray-900 mb-4 group-hover:text-indigo-600 transition-colors">
+                    <h3 className="text-3xl font-bold text-gray-900 mb-4 group-hover:text-blue-600 transition-colors">
                       {featuredBlog.title}
                     </h3>
                     
@@ -209,7 +209,7 @@ const BlogList = () => {
                     </p>
                     
                     <div className="flex items-center gap-3">
-                      <div className="w-12 h-12 bg-indigo-600 rounded-full flex items-center justify-center text-white font-semibold">
+                      <div className="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center text-white font-semibold">
                         {featuredBlog.author.split(' ').map(n => n[0]).join('')}
                       </div>
                       <div>
@@ -246,7 +246,7 @@ const BlogList = () => {
                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                       />
                       <div className="absolute top-4 left-4">
-                        <span className="bg-white text-indigo-600 px-3 py-1 rounded-full text-xs font-semibold shadow-lg">
+                        <span className="bg-white text-blue-600 px-3 py-1 rounded-full text-xs font-semibold shadow-lg">
                           {blog.category}
                         </span>
                       </div>
@@ -259,7 +259,7 @@ const BlogList = () => {
                         <span>{blog.readTime} min read</span>
                       </div>
                       
-                      <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-indigo-600 transition-colors line-clamp-2">
+                      <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors line-clamp-2">
                         {blog.title}
                       </h3>
                       
@@ -268,7 +268,7 @@ const BlogList = () => {
                       </p>
                       
                       <div className="flex items-center gap-3 pt-4 border-t border-gray-100">
-                        <div className="w-10 h-10 bg-indigo-600 rounded-full flex items-center justify-center text-white font-semibold text-sm">
+                        <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white font-semibold text-sm">
                           {blog.author.split(' ').map(n => n[0]).join('')}
                         </div>
                         <div>
@@ -297,7 +297,7 @@ const BlogList = () => {
                   onClick={() => setActiveCategory(category)}
                   className={`px-6 py-2 rounded-full font-medium transition-all ${
                     activeCategory === category
-                      ? 'bg-indigo-600 text-white shadow-lg'
+                      ? 'bg-blue-600 text-white shadow-lg'
                       : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                   }`}
                 >
@@ -321,7 +321,7 @@ const BlogList = () => {
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                     />
                     <div className="absolute top-4 left-4">
-                      <span className="bg-white text-indigo-600 px-3 py-1 rounded-full text-xs font-semibold shadow-lg">
+                      <span className="bg-white text-blue-600 px-3 py-1 rounded-full text-xs font-semibold shadow-lg">
                         {blog.category}
                       </span>
                     </div>
@@ -343,7 +343,7 @@ const BlogList = () => {
                       <span>{blog.readTime} min read</span>
                     </div>
                     
-                    <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-indigo-600 transition-colors line-clamp-2">
+                    <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors line-clamp-2">
                       {blog.title}
                     </h3>
                     
@@ -352,7 +352,7 @@ const BlogList = () => {
                     </p>
                     
                     <div className="flex items-center gap-3 pt-4 border-t border-gray-100">
-                      <div className="w-10 h-10 bg-indigo-600 rounded-full flex items-center justify-center text-white font-semibold text-sm">
+                      <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white font-semibold text-sm">
                         {blog.author.split(' ').map(n => n[0]).join('')}
                       </div>
                       <div>
@@ -374,13 +374,13 @@ const BlogList = () => {
       </section>
 
       {/* Newsletter Section */}
-      <section className="py-20 bg-gradient-to-br from-indigo-600 to-purple-600">
+      <section className="py-20 bg-gradient-to-br from-blue-600 to-blue-700">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-4xl font-bold text-white mb-6">
               Stay Updated with Our Latest Posts
             </h2>
-            <p className="text-xl text-indigo-100 mb-8">
+            <p className="text-xl text-blue-100 mb-8">
               Get weekly insights delivered straight to your inbox
             </p>
             
@@ -390,7 +390,7 @@ const BlogList = () => {
                 placeholder="Enter your email"
                 className="flex-1 px-6 py-4 rounded-full focus:outline-none focus:ring-2 focus:ring-white"
               />
-              <button className="bg-white text-indigo-600 px-8 py-4 rounded-full font-semibold hover:bg-gray-100 transition-colors whitespace-nowrap">
+              <button className="bg-white text-blue-600 px-8 py-4 rounded-full font-semibold hover:bg-gray-100 transition-colors whitespace-nowrap">
                 Subscribe
               </button>
             </div>
@@ -405,7 +405,7 @@ const BlogList = () => {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             {/* Brand Column */}
             <div className="space-y-4">
-              <h3 className="text-2xl font-bold text-indigo-400">FreelanceHub</h3>
+              <h3 className="text-2xl font-bold text-blue-400">FreelanceHub</h3>
               <p className="text-gray-400">
                 Connecting talented freelancers with amazing opportunities worldwide.
               </p>

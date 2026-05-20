@@ -30,14 +30,14 @@ const BlogSection = () => {
 
   const getCategoryStyles = (category) => {
     const map = {
-      'Productivity': 'bg-purple-50 text-purple-700 border-purple-100',
+      'Productivity': 'bg-blue-50 text-blue-700 border-blue-100',
       'Freelancing Tips': 'bg-emerald-50 text-emerald-700 border-emerald-100',
       'Career Advice': 'bg-blue-50 text-blue-700 border-blue-100',
       'Success Stories': 'bg-amber-50 text-amber-700 border-amber-100',
       'Tools & Resources': 'bg-rose-50 text-rose-700 border-rose-100',
       'Industry News': 'bg-slate-100 text-slate-700 border-slate-200',
       'Remote Work': 'bg-cyan-50 text-cyan-700 border-cyan-100',
-      'Client Management': 'bg-indigo-50 text-indigo-700 border-indigo-100',
+      'Client Management': 'bg-blue-50 text-blue-700 border-blue-100',
       'Finance for Freelancers': 'bg-teal-50 text-teal-700 border-teal-100'
     };
     return map[category] || 'bg-navy-50 text-navy-700 border-navy-100';
@@ -66,7 +66,7 @@ const BlogSection = () => {
         <div className="flex flex-col md:flex-row items-end justify-between gap-8 mb-16">
           <div className="max-w-2xl text-center md:text-left">
             <span className="text-navy-600 font-bold tracking-widest uppercase text-xs">Resources</span>
-            <h2 className="text-4xl lg:text-5xl font-bold font-heading mt-4 text-slate-900 tracking-tight">
+            <h2 className="text-4xl lg:text-5xl font-bold mt-4 text-slate-900 tracking-tight">
               Latest <span className="text-navy-600">Insights</span>
             </h2>
             <p className="mt-4 text-lg text-slate-600">Expert advice on scaling your freelance career and finding the best talent.</p>
@@ -107,7 +107,7 @@ const BlogSection = () => {
                 </div>
 
                 <div className="p-8">
-                  <h3 className="text-xl font-bold font-heading text-slate-900 mb-3 line-clamp-2 group-hover:text-navy-600 transition-colors">
+                  <h3 className="text-xl font-bold text-slate-900 mb-3 line-clamp-2 group-hover:text-navy-600 transition-colors">
                     {blog.title}
                   </h3>
                   <p className="text-slate-500 text-sm mb-6 line-clamp-3 leading-relaxed">

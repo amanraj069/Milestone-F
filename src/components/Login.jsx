@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
 const Login = () => {
@@ -18,6 +18,20 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const { login } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    const roleFromQuery = new URLSearchParams(location.search).get('role');
+    const allowedRoles = ['Freelancer', 'Employer', 'Moderator', 'Admin'];
+
+    if (roleFromQuery && allowedRoles.includes(roleFromQuery)) {
+      setFormData((prev) => ({
+        ...prev,
+        role: roleFromQuery,
+      }));
+      setFieldErrors((prev) => ({ ...prev, role: '' }));
+    }
+  }, [location.search]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -126,7 +140,7 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-navy-50 to-navy-100 p-3 sm:p-5">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-blue-100 p-3 sm:p-5">
       <div className="flex max-w-5xl w-full bg-white rounded-2xl lg:rounded-3xl overflow-hidden shadow-2xl lg:min-h-[600px] border border-gray-100">
         {/* Left Side - Form */}
         <div className="w-full lg:flex-1 p-5 sm:p-8 lg:p-12 flex items-center justify-center bg-white">
@@ -153,7 +167,7 @@ const Login = () => {
                       ? 'border-rose-400 focus:border-rose-500 focus:ring-4 focus:ring-rose-50' 
                       : formData.email && /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(formData.email) 
                         ? 'border-emerald-400 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-50' 
-                        : 'border-gray-300 focus:border-navy-500 focus:ring-4 focus:ring-navy-50'
+                        : 'border-gray-300 focus:border-blue-500 focus:ring-4 focus:ring-blue-50'
                   }`}
                 />
                 {fieldErrors.email && (
@@ -178,7 +192,7 @@ const Login = () => {
                         ? 'border-rose-400 focus:border-rose-500 focus:ring-4 focus:ring-rose-50' 
                         : formData.password
                           ? 'border-emerald-400 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-50' 
-                          : 'border-gray-300 focus:border-navy-500 focus:ring-4 focus:ring-navy-50'
+                          : 'border-gray-300 focus:border-blue-500 focus:ring-4 focus:ring-blue-50'
                     }`}
                   />
                   <button
@@ -207,7 +221,7 @@ const Login = () => {
                       ? 'border-rose-400 focus:border-rose-500 focus:ring-rose-50' 
                       : formData.role
                         ? 'border-emerald-400 focus:border-emerald-500 focus:ring-emerald-50'
-                        : 'border-gray-300 focus:border-navy-700 focus:ring-navy-100'
+                        : 'border-gray-300 focus:border-blue-700 focus:ring-blue-100'
                   }`}
                 >
                   <option value="">Select role</option>
@@ -232,7 +246,7 @@ const Login = () => {
               <button 
                 type="submit" 
                 disabled={loading}
-                className="px-6 py-3.5 rounded-lg font-semibold cursor-pointer transition-all text-base inline-flex items-center justify-center gap-2 bg-gradient-to-r from-navy-950 via-navy-900 to-navy-800 text-white w-full hover:from-navy-900 hover:via-navy-800 hover:to-navy-700 hover:shadow-lg hover:-translate-y-0.5 disabled:opacity-60 disabled:cursor-not-allowed disabled:transform-none"
+                className="px-6 py-3.5 rounded-lg font-semibold cursor-pointer transition-all text-base inline-flex items-center justify-center gap-2 bg-gradient-to-r from-blue-950 via-blue-900 to-blue-800 text-white w-full hover:from-blue-900 hover:via-blue-800 hover:to-blue-700 hover:shadow-lg hover:-translate-y-0.5 disabled:opacity-60 disabled:cursor-not-allowed disabled:transform-none"
               >
                 {loading ? 'Logging In...' : 'Log In'}
               </button>
@@ -248,7 +262,7 @@ const Login = () => {
         </div>
 
         {/* Right Side - Branding */}
-        <div className="hidden lg:flex lg:flex-1 bg-gradient-to-br from-navy-950 via-navy-900 to-navy-800 text-white px-12 py-16 items-center justify-center relative overflow-hidden">
+        <div className="hidden lg:flex lg:flex-1 bg-gradient-to-br from-blue-950 via-blue-900 to-blue-800 text-white px-12 py-16 items-center justify-center relative overflow-hidden">
           <div className="absolute inset-0 opacity-10" style={{
             background: 'radial-gradient(circle at 30% 40%, rgba(255, 255, 255, 0.2) 0%, transparent 50%), radial-gradient(circle at 70% 80%, rgba(255, 255, 255, 0.15) 0%, transparent 50%)'
           }}></div>

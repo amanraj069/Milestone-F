@@ -3,6 +3,8 @@ import { useParams, useNavigate, Link, useSearchParams } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext';
 import Footer from '../../components/Home/Footer';
 import LocationMapEmbed from '../../components/maps/LocationMapEmbed';
+import Navbar from '../../components/Navbar';
+import SolrSearchBar from '../../components/search/SolrSearchBar';
 import { getBackendBaseUrl } from '../../utils/backendBaseUrl';
 
 const normalizeMilestones = (jobData) => {
@@ -38,6 +40,7 @@ const JobDescription = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const { user } = useAuth();
+  const [searchTerm, setSearchTerm] = useState('');
   const [job, setJob] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -274,51 +277,26 @@ const JobDescription = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <header className="bg-white/95 border-gray-200 backdrop-blur-md border-b fixed top-0 left-0 right-0 z-50">
-        <div className="max-w-7xl mx-auto px-8">
-          <div className="flex items-center justify-between py-4">
-            <div className="text-4xl font-bold text-gray-900">
-              <Link to="/" className="hover:text-navy-700 transition-colors">
-                Mile<span className="text-navy-700">stone</span>
-              </Link>
-            </div>
-            <div className="flex items-center gap-4">
-              {user ? (
-                <Link 
-                  to={
-                    user.role === 'Moderator'
-                      ? '/moderator/profile'
-                      : user.role === 'Employer'
-                      ? '/employer/profile'
-                      : '/freelancer/profile'
-                  }
-                  className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-navy-950 via-navy-900 to-navy-800 text-white rounded-lg font-medium no-underline transition-all hover:shadow-lg hover:-translate-y-0.5"
-                >
-                  <i className="fas fa-tachometer-alt"></i>
-                  Dashboard
-                </Link>
-              ) : (
-                <Link 
-                  to="/login" 
-                  className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-navy-950 via-navy-900 to-navy-800 text-white rounded-lg font-medium no-underline transition-all hover:shadow-lg hover:-translate-y-0.5"
-                >
-                  <i className="fas fa-sign-in-alt"></i>
-                  Sign In
-                </Link>
-              )}
-            </div>
-          </div>
-        </div>
-      </header>
+    <div className="min-h-screen bg-slate-50 selection:bg-blue-100 selection:text-blue-900">
+      <Navbar
+        forceSolid={true}
+        searchBar={
+          <SolrSearchBar
+            query={searchTerm}
+            onQueryChange={setSearchTerm}
+            type="jobs"
+            hideToggle={true}
+            onSearch={() => {}}
+          />
+        }
+      />
 
       {/* Main Content */}
-      <main className="pt-24 pb-12 max-w-7xl mx-auto px-6 lg:px-8">
+      <main className="pt-28 pb-20 max-w-7xl mx-auto px-6 lg:px-8">
         {/* Back Button */}
         <button
           onClick={() => navigate(-1)}
-          className="mb-6 text-gray-600 font-medium hover:text-blue-600 transition-colors flex items-center gap-2"
+          className="mb-6 text-slate-500 font-medium hover:text-blue-600 transition-colors flex items-center gap-2"
         >
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
@@ -327,17 +305,17 @@ const JobDescription = () => {
         </button>
 
         {/* Job Header Card */}
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-6">
+        <div className="rounded-[2.5rem] bg-white border border-slate-100 shadow-sm p-8 mb-6">
           <div className="flex flex-col lg:flex-row justify-between gap-6">
             {/* Left Section - Job Info */}
             <div className="flex-1 min-w-0">
               {/* Job Title & Company */}
-              <h1 className="text-2xl font-bold text-gray-900 mb-1">{job.title}</h1>
+              <h1 className="text-2xl font-bold font-heading text-slate-900 mb-1">{job.title}</h1>
               <h2 className="text-lg font-medium text-blue-600 mb-4">{job.companyName}</h2>
 
               {/* Job Meta Information */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-6">
-                <div className="flex items-center gap-3 p-3 bg-gray-50 border border-gray-200 rounded-lg">
+                <div className="flex items-center gap-3 p-3 bg-slate-50 border border-slate-200 rounded-xl">
                   <svg className="w-5 h-5 text-gray-500 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
                   </svg>
@@ -371,11 +349,11 @@ const JobDescription = () => {
                   </span>
                 </div>
 
-                <div className="flex items-center gap-3 p-3 bg-gray-50 border border-gray-200 rounded-lg md:col-span-2">
-                  <svg className="w-5 h-5 text-gray-500 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
+                <div className="flex items-center gap-3 p-3 bg-slate-50 border border-slate-200 rounded-xl md:col-span-2">
+                  <svg className="w-5 h-5 text-slate-500 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm-.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67V7z" />
                   </svg>
-                  <span className="text-gray-700 text-sm">Posted on {formatDate(job.postedDate)}</span>
+                  <span className="text-slate-700 text-sm">Posted on {formatDate(job.postedDate)}</span>
                 </div>
               </div>
 
@@ -457,7 +435,7 @@ const JobDescription = () => {
         </div>
 
         {/* Tabs Navigation */}
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200 mb-6">
+        <div className="rounded-[2.5rem] bg-white border border-slate-100 shadow-sm overflow-hidden mb-6">
           <div className="flex border-b border-gray-200">
             <button
               onClick={() => setActiveTab('details')}
@@ -496,23 +474,23 @@ const JobDescription = () => {
             {activeTab === 'details' ? (
               /* Job Details Tab */
               <div>
-                <h2 className="text-base font-semibold text-gray-900 mb-4 pb-3 border-b border-gray-200">
+                <h2 className="text-base font-semibold text-slate-900 mb-4 pb-3 border-b border-slate-200">
                   Job Description
                 </h2>
                 <div className="prose max-w-none">
-                  <p className="text-gray-600 leading-relaxed mb-6 whitespace-pre-wrap">
+                  <p className="text-slate-600 leading-relaxed mb-6 whitespace-pre-wrap">
                     {job.description.text}
                   </p>
 
                   {job.description.responsibilities &&
                     job.description.responsibilities.length > 0 && (
                       <div className="mb-6">
-                        <h3 className="text-sm font-semibold text-gray-900 mb-3">
+                        <h3 className="text-sm font-semibold text-slate-900 mb-3">
                           Responsibilities:
                         </h3>
                         <ul className="space-y-2">
                           {job.description.responsibilities.map((item, index) => (
-                            <li key={index} className="text-gray-600 text-sm flex items-start gap-2">
+                            <li key={index} className="text-slate-600 text-sm flex items-start gap-2">
                               <span className="text-blue-600 mt-0.5">•</span>
                               <span>{item}</span>
                             </li>
@@ -524,12 +502,12 @@ const JobDescription = () => {
                   {job.description.requirements &&
                     job.description.requirements.length > 0 && (
                       <div className="mb-6">
-                        <h3 className="text-sm font-semibold text-gray-900 mb-3">
+                        <h3 className="text-sm font-semibold text-slate-900 mb-3">
                           Requirements:
                         </h3>
                         <ul className="space-y-2">
                           {job.description.requirements.map((item, index) => (
-                            <li key={index} className="text-gray-600 text-sm flex items-start gap-2">
+                            <li key={index} className="text-slate-600 text-sm flex items-start gap-2">
                               <span className="text-blue-600 mt-0.5">•</span>
                               <span>{item}</span>
                             </li>
@@ -539,15 +517,15 @@ const JobDescription = () => {
                     )}
 
                   {job.description.skills && job.description.skills.length > 0 && (
-                    <div className="mt-6 pt-6 border-t border-gray-200">
-                      <h3 className="text-sm font-semibold text-gray-900 mb-3">
+                    <div className="mt-6 pt-6 border-t border-slate-200">
+                      <h3 className="text-sm font-semibold text-slate-900 mb-3">
                         Technical Skills:
                       </h3>
                       <div className="flex flex-wrap gap-2">
                         {job.description.skills.map((skill, index) => (
                           <span
                             key={index}
-                            className="px-3 py-1 bg-gray-100 text-gray-700 rounded text-xs font-medium"
+                            className="px-3 py-1 bg-slate-50 border border-slate-200 text-slate-700 rounded-lg text-xs font-medium"
                           >
                             {skill}
                           </span>
@@ -556,8 +534,8 @@ const JobDescription = () => {
                     </div>
                   )}
 
-                  <div className="mt-6 pt-6 border-t border-gray-200">
-                    <h3 className="text-sm font-semibold text-gray-900 mb-3">
+                  <div className="mt-6 pt-6 border-t border-slate-200">
+                    <h3 className="text-sm font-semibold text-slate-900 mb-3">
                       Job Location on Map
                     </h3>
                     <LocationMapEmbed
@@ -571,29 +549,29 @@ const JobDescription = () => {
             ) : (
               /* Questions Tab */
               <div>
-                <h2 className="text-base font-semibold text-gray-900 mb-4 pb-3 border-b border-gray-200">
+                <h2 className="text-base font-semibold text-slate-900 mb-4 pb-3 border-b border-slate-200">
                   Questions & Answers
                 </h2>
                 
                 {/* Post Question Form - Only for Freelancers */}
                 {user && user.role === 'Freelancer' && (
                   <form onSubmit={handlePostQuestion} className="mb-6">
-                    <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
-                      <h3 className="text-sm font-medium text-gray-800 mb-2">
+                    <div className="bg-slate-50 rounded-xl p-5 border border-slate-200">
+                      <h3 className="text-sm font-medium text-slate-800 mb-2">
                         Have a question about this job?
                       </h3>
                       <textarea
                         value={newQuestion}
                         onChange={(e) => setNewQuestion(e.target.value)}
                         placeholder="Ask your question here..."
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+                        className="w-full px-4 py-3 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none bg-white"
                         rows={3}
                       />
-                      <div className="mt-2 flex justify-end">
+                      <div className="mt-3 flex justify-end">
                         <button
                           type="submit"
                           disabled={!newQuestion.trim() || submittingQuestion}
-                          className="px-4 py-2 bg-blue-600 text-white rounded-md text-sm font-medium hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                          className="px-5 py-2.5 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                         >
                           {submittingQuestion ? 'Posting...' : 'Post Question'}
                         </button>
@@ -603,7 +581,7 @@ const JobDescription = () => {
                 )}
 
                 {!user && (
-                  <div className="mb-6 bg-yellow-50 border border-yellow-200 rounded-lg p-4 text-center">
+                  <div className="mb-6 bg-yellow-50 border border-yellow-200 rounded-xl p-4 text-center">
                     <p className="text-yellow-800 text-sm">
                       <Link to="/login" className="text-blue-600 font-medium hover:underline">
                         Login
@@ -616,20 +594,20 @@ const JobDescription = () => {
                 {/* Questions List */}
                 {questionsLoading ? (
                   <div className="text-center py-12">
-                    <div className="inline-block animate-spin rounded-full h-8 w-8 border-2 border-gray-300 border-t-blue-600 mb-3"></div>
-                    <p className="text-gray-500">Loading questions...</p>
+                    <div className="inline-block animate-spin rounded-full h-8 w-8 border-2 border-slate-300 border-t-blue-600 mb-3"></div>
+                    <p className="text-slate-500">Loading questions...</p>
                   </div>
                 ) : questions.length === 0 ? (
-                  <div className="text-center py-12">
-                    <p className="text-lg font-medium text-gray-700 mb-1">No questions yet</p>
-                    <p className="text-gray-500">Be the first to ask a question about this job!</p>
+                  <div className="text-center py-12 bg-slate-50 rounded-xl border border-slate-100">
+                    <p className="text-lg font-medium text-slate-700 mb-1">No questions yet</p>
+                    <p className="text-slate-500">Be the first to ask a question about this job!</p>
                   </div>
                 ) : (
                   <div className="space-y-4">
                     {questions.map((question) => (
-                      <div key={question.questionId} className="border border-gray-200 rounded-lg p-4 hover:border-gray-300 transition-colors">
+                      <div key={question.questionId} className="border border-slate-200 bg-white rounded-xl p-5 hover:border-slate-300 transition-colors shadow-sm">
                         {/* Question */}
-                        <div className="flex gap-3">
+                        <div className="flex gap-4">
                           <img
                             src={question.askerPicture || 'https://cdn.pixabay.com/photo/2018/04/18/18/56/user-3331256_1280.png'}
                             alt={question.askerName}
@@ -640,23 +618,23 @@ const JobDescription = () => {
                           />
                           <div className="flex-1">
                             <div className="flex items-center gap-2 mb-1">
-                              <span className="font-medium text-gray-900 text-sm">
+                              <span className="font-medium text-slate-900 text-sm">
                                 {question.askerName}
                                 {user && user.roleId === question.askerId && (
-                                  <span className="text-gray-500 font-normal"> (You)</span>
+                                  <span className="text-slate-500 font-normal"> (You)</span>
                                 )}
                               </span>
-                              <span className="text-xs text-gray-500">{formatTimeAgo(question.createdAt)}</span>
+                              <span className="text-xs text-slate-500">{formatTimeAgo(question.createdAt)}</span>
                             </div>
-                            <p className="text-gray-700 text-sm">{question.text}</p>
+                            <p className="text-slate-700 text-sm">{question.text}</p>
                           </div>
                         </div>
 
                         {/* Answers */}
                         {question.answers && question.answers.length > 0 && (
-                          <div className="mt-4 ml-11 space-y-3">
+                          <div className="mt-4 ml-12 space-y-3">
                             {question.answers.map((answer) => (
-                              <div key={answer.answerId} className="bg-gray-50 rounded-lg p-3 border border-gray-200">
+                              <div key={answer.answerId} className="bg-slate-50 rounded-xl p-4 border border-slate-200">
                                 <div className="flex gap-3">
                                   <img
                                     src={answer.answererPicture || 'https://cdn.pixabay.com/photo/2018/04/18/18/56/user-3331256_1280.png'}
@@ -668,17 +646,17 @@ const JobDescription = () => {
                                   />
                                   <div className="flex-1">
                                     <div className="flex items-center gap-2 mb-1">
-                                      <span className="font-medium text-gray-900 text-sm">{answer.answererName}</span>
+                                      <span className="font-medium text-slate-900 text-sm">{answer.answererName}</span>
                                       <span className={`text-xs px-2 py-0.5 rounded ${
                                         answer.answererType === 'Employer' 
                                           ? 'bg-blue-100 text-blue-700' 
-                                          : 'bg-green-100 text-green-700'
+                                          : 'bg-emerald-100 text-emerald-700'
                                       }`}>
                                         {answer.answererType}
                                       </span>
-                                      <span className="text-xs text-gray-500">{formatTimeAgo(answer.createdAt)}</span>
+                                      <span className="text-xs text-slate-500">{formatTimeAgo(answer.createdAt)}</span>
                                     </div>
-                                    <p className="text-gray-700 text-sm">{answer.text}</p>
+                                    <p className="text-slate-700 text-sm">{answer.text}</p>
                                   </div>
                                 </div>
                               </div>
@@ -688,7 +666,7 @@ const JobDescription = () => {
 
                         {/* Answer Form - Only for employer or assigned freelancer, but not for the question asker */}
                         {canAnswer && user && user.roleId !== question.askerId && (
-                          <div className="mt-4 ml-11">
+                          <div className="mt-4 ml-12">
                             <div className="flex gap-3">
                               <img
                                 src={user?.picture || 'https://cdn.pixabay.com/photo/2018/04/18/18/56/user-3331256_1280.png'}
@@ -703,14 +681,14 @@ const JobDescription = () => {
                                     [question.questionId]: e.target.value
                                   })}
                                   placeholder="Write your answer..."
-                                  className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+                                  className="w-full px-4 py-2 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none bg-white"
                                   rows={2}
                                 />
                                 <div className="mt-2 flex justify-end">
                                   <button
                                     onClick={() => handlePostAnswer(question.questionId)}
                                     disabled={!answerTexts[question.questionId]?.trim() || submittingAnswer[question.questionId]}
-                                    className="px-3 py-1.5 bg-blue-600 text-white rounded-md text-xs font-medium hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                                    className="px-4 py-2 bg-blue-600 text-white rounded-lg text-xs font-medium hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                                   >
                                     {submittingAnswer[question.questionId] ? 'Posting...' : 'Post Answer'}
                                   </button>
@@ -730,36 +708,36 @@ const JobDescription = () => {
 
         {/* Milestones Card - Only show in details tab */}
         {activeTab === 'details' && (
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-          <div className="border-b border-gray-200 pb-4 mb-4">
-            <h2 className="text-base font-semibold text-gray-900">Project Milestones</h2>
-            <p className="text-sm text-gray-500 mt-0.5">Payment schedule and deliverables</p>
+        <div className="rounded-[2.5rem] bg-white border border-slate-100 shadow-sm p-8">
+          <div className="border-b border-slate-200 pb-4 mb-6">
+            <h2 className="text-xl font-bold font-heading text-slate-900">Project Milestones</h2>
+            <p className="text-sm text-slate-500 mt-1">Payment schedule and deliverables</p>
           </div>
           {job.milestones && job.milestones.length > 0 ? (
-            <div className="overflow-x-auto">
+            <div className="overflow-hidden rounded-xl border border-slate-200">
               <table className="w-full text-sm">
                 <thead>
-                  <tr className="bg-gray-50 border-b border-gray-200">
-                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Description</th>
-                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Deadline</th>
-                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Payment</th>
+                  <tr className="bg-slate-50 border-b border-slate-200">
+                    <th className="px-6 py-4 text-left text-xs font-bold text-slate-500 uppercase tracking-wider">Description</th>
+                    <th className="px-6 py-4 text-left text-xs font-bold text-slate-500 uppercase tracking-wider">Deadline</th>
+                    <th className="px-6 py-4 text-left text-xs font-bold text-slate-500 uppercase tracking-wider">Payment</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-gray-200">
+                <tbody className="divide-y divide-slate-200 bg-white">
                   {job.milestones.map((milestone, index) => (
-                    <tr key={index} className="hover:bg-gray-50">
-                      <td className="px-4 py-3 text-gray-700">{milestone.description}</td>
-                      <td className="px-4 py-3 text-gray-600">{milestone.deadline}</td>
-                      <td className="px-4 py-3 text-blue-600 font-medium">{milestone.payment}</td>
+                    <tr key={index} className="hover:bg-slate-50 transition-colors">
+                      <td className="px-6 py-4 text-slate-700 font-medium">{milestone.description}</td>
+                      <td className="px-6 py-4 text-slate-600">{milestone.deadline}</td>
+                      <td className="px-6 py-4 text-blue-600 font-bold">{milestone.payment}</td>
                     </tr>
                   ))}
                 </tbody>
               </table>
             </div>
           ) : (
-            <div className="text-center py-12">
-              <p className="text-lg font-medium text-gray-700">No milestones defined</p>
-              <p className="text-gray-500 mt-1">This project doesn't have specific milestones.</p>
+            <div className="text-center py-12 bg-slate-50 rounded-2xl border border-slate-100">
+              <p className="text-lg font-medium text-slate-700">No milestones defined</p>
+              <p className="text-slate-500 mt-1">This project doesn't have specific milestones.</p>
             </div>
           )}
         </div>

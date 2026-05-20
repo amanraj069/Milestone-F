@@ -247,7 +247,7 @@ const PublicJobListing = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 selection:bg-navy-100 selection:text-navy-900">
+    <div className="min-h-screen bg-slate-50 selection:bg-blue-100 selection:text-blue-900">
       <Navbar 
         forceSolid={true}
         searchBar={
@@ -271,7 +271,7 @@ const PublicJobListing = () => {
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="w-full py-4 bg-white border border-slate-200 rounded-2xl shadow-sm text-slate-700 font-bold flex items-center justify-center gap-2 hover:bg-slate-50 transition-all"
             >
-              <i className="fas fa-filter text-navy-600"></i>
+              <i className="fas fa-filter text-blue-600"></i>
               {mobileMenuOpen ? 'Hide Filters' : 'Show Filters'}
             </button>
           </div>
@@ -291,7 +291,7 @@ const PublicJobListing = () => {
                       setLocationFilter('');
                       setSelectedSkills([]);
                     }}
-                    className="text-xs font-bold text-navy-600 hover:text-navy-700"
+                    className="text-xs font-bold text-blue-600 hover:text-blue-700"
                   >
                     Reset
                   </button>
@@ -303,7 +303,7 @@ const PublicJobListing = () => {
                   <select
                     value={sortBy}
                     onChange={(e) => setSortBy(e.target.value)}
-                    className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm font-medium focus:ring-4 focus:ring-navy-600/5 focus:bg-white outline-none transition-all cursor-pointer"
+                    className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm font-medium focus:ring-4 focus:ring-blue-600/5 focus:bg-white outline-none transition-all cursor-pointer"
                   >
                     <option value="date">Newest First</option>
                     <option value="salary-desc">Highest Salary</option>
@@ -317,7 +317,7 @@ const PublicJobListing = () => {
                   <select
                     value={selectedJobType}
                     onChange={(e) => setSelectedJobType(e.target.value)}
-                    className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm font-medium focus:ring-4 focus:ring-navy-600/5 focus:bg-white outline-none transition-all cursor-pointer"
+                    className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm font-medium focus:ring-4 focus:ring-blue-600/5 focus:bg-white outline-none transition-all cursor-pointer"
                   >
                     <option value="">All Types</option>
                     <option value="full-time">Full Time</option>
@@ -333,7 +333,7 @@ const PublicJobListing = () => {
                   <select
                     value={selectedExperience}
                     onChange={(e) => setSelectedExperience(e.target.value)}
-                    className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm font-medium focus:ring-4 focus:ring-navy-600/5 focus:bg-white outline-none transition-all cursor-pointer"
+                    className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm font-medium focus:ring-4 focus:ring-blue-600/5 focus:bg-white outline-none transition-all cursor-pointer"
                   >
                     <option value="">All Levels</option>
                     <option value="Entry">Entry Level</option>
@@ -352,7 +352,7 @@ const PublicJobListing = () => {
                       placeholder="City or Country"
                       value={locationFilter}
                       onChange={(e) => setLocationFilter(e.target.value)}
-                      className="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm font-medium focus:ring-4 focus:ring-navy-600/5 focus:bg-white outline-none transition-all"
+                      className="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm font-medium focus:ring-4 focus:ring-blue-600/5 focus:bg-white outline-none transition-all"
                     />
                     <i className="fas fa-map-marker-alt absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
                   </div>
@@ -361,12 +361,12 @@ const PublicJobListing = () => {
                 {/* Remote Toggle */}
                 <div className="flex items-center justify-between p-4 bg-slate-50 rounded-2xl border border-slate-100">
                   <div className="flex items-center gap-3">
-                    <i className="fas fa-home text-navy-600 text-xs"></i>
+                    <i className="fas fa-home text-blue-600 text-xs"></i>
                     <span className="text-sm font-bold text-slate-700">Remote Only</span>
                   </div>
                   <button 
                     onClick={() => setIsRemote(!isRemote)}
-                    className={`w-10 h-5 rounded-full transition-all relative ${isRemote ? 'bg-navy-600' : 'bg-slate-300'}`}
+                    className={`w-10 h-5 rounded-full transition-all relative ${isRemote ? 'bg-blue-600' : 'bg-slate-300'}`}
                   >
                     <div className={`absolute top-1 w-3 h-3 bg-white rounded-full transition-all ${isRemote ? 'right-1' : 'left-1'}`}></div>
                   </button>
@@ -378,7 +378,7 @@ const PublicJobListing = () => {
             <section className="flex-1">
               {loading ? (
                 <div className="flex flex-col items-center justify-center py-32 bg-white rounded-[2.5rem] border border-slate-100">
-                  <div className="w-12 h-12 border-4 border-navy-600 border-t-transparent rounded-full animate-spin mb-4"></div>
+                  <div className="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mb-4"></div>
                   <p className="text-slate-500 font-bold uppercase tracking-widest text-[10px]">Loading amazing opportunities...</p>
                 </div>
               ) : filteredJobs.length === 0 ? (
@@ -397,7 +397,7 @@ const PublicJobListing = () => {
                 <>
                   <div className="flex items-center justify-between mb-8 px-2">
                     <p className="text-sm font-bold text-slate-500 uppercase tracking-widest">
-                      Found <span className="text-navy-600">{pagination.total}</span> Jobs
+                      Found <span className="text-blue-600">{pagination.total}</span> Jobs
                     </p>
                   </div>
                   
@@ -405,7 +405,7 @@ const PublicJobListing = () => {
                     {filteredJobs.map((job) => (
                       <div
                         key={job.jobId}
-                        className="group relative rounded-[2.5rem] border border-slate-100 p-6 sm:p-8 hover:shadow-2xl hover:border-navy-100 transition-all duration-300 bg-white"
+                        className="group relative rounded-[2.5rem] border border-slate-100 p-6 sm:p-8 hover:shadow-2xl hover:border-blue-100 transition-all duration-300 bg-white"
                       >
                         <div className="flex flex-col md:flex-row gap-6 md:gap-8">
                           
@@ -429,7 +429,7 @@ const PublicJobListing = () => {
                           <div className="flex-1 min-w-0">
                             <div className="flex items-start justify-between gap-4 mb-4">
                               <div className="min-w-0">
-                                <h4 className="text-xl font-bold text-slate-900 mb-1 group-hover:text-navy-600 transition-colors truncate">
+                                <h4 className="text-xl font-bold text-slate-900 mb-1 group-hover:text-blue-600 transition-colors truncate">
                                   {job.title}
                                 </h4>
                                 <div className="flex items-center gap-3 text-xs font-bold text-slate-400 uppercase tracking-widest">
@@ -452,7 +452,7 @@ const PublicJobListing = () => {
                               {job.description.skills.slice(0, 4).map((skill, index) => (
                                 <span
                                   key={index}
-                                  className="px-3 py-1.5 rounded-xl text-[10px] font-bold uppercase tracking-wider bg-slate-50 text-slate-600 border border-slate-100 group-hover:border-navy-100 transition-all"
+                                  className="px-3 py-1.5 rounded-xl text-[10px] font-bold uppercase tracking-wider bg-slate-50 text-slate-600 border border-slate-100 group-hover:border-blue-100 transition-all"
                                 >
                                   {skill}
                                 </span>
@@ -467,7 +467,7 @@ const PublicJobListing = () => {
                             <div className="flex flex-wrap items-center justify-between gap-4 pt-6 border-t border-slate-50">
                               <div className="flex items-center gap-6 text-xs font-bold text-slate-500 uppercase tracking-widest">
                                 <span className="flex items-center gap-2">
-                                  <i className="fas fa-map-marker-alt text-navy-600"></i>
+                                  <i className="fas fa-map-marker-alt text-blue-600"></i>
                                   {job.location}
                                 </span>
                                 {job.remote && (
@@ -484,7 +484,7 @@ const PublicJobListing = () => {
                                 </span>
                                 <Link
                                   to={`/jobs/${job.jobId}`}
-                                  className="px-6 py-3 bg-slate-900 text-white rounded-xl font-bold text-xs hover:bg-navy-600 hover:shadow-xl hover:shadow-navy-600/20 transition-all"
+                                  className="px-6 py-3 bg-slate-900 text-white rounded-xl font-bold text-xs hover:bg-blue-600 hover:shadow-xl hover:shadow-blue-600/20 transition-all"
                                 >
                                   Apply Now
                                 </Link>
@@ -502,7 +502,7 @@ const PublicJobListing = () => {
                         <button
                           onClick={() => goToPage(pagination.page - 1)}
                           disabled={loading || !pagination?.hasPrevPage}
-                          className="w-12 h-12 flex items-center justify-center rounded-2xl bg-white border border-slate-100 text-slate-400 hover:border-navy-600 hover:text-navy-600 disabled:opacity-40 transition-all"
+                          className="w-12 h-12 flex items-center justify-center rounded-2xl bg-white border border-slate-100 text-slate-400 hover:border-blue-600 hover:text-blue-600 disabled:opacity-40 transition-all"
                         >
                           <i className="fas fa-arrow-left text-xs"></i>
                         </button>
@@ -517,8 +517,8 @@ const PublicJobListing = () => {
                                 onClick={() => goToPage(item)}
                                 className={`w-12 h-12 flex items-center justify-center rounded-2xl text-sm font-bold transition-all ${
                                   isActive
-                                    ? 'bg-navy-600 text-white shadow-xl shadow-navy-600/30'
-                                    : 'bg-white border border-slate-100 text-slate-600 hover:border-navy-600 hover:text-navy-600'
+                                    ? 'bg-blue-600 text-white shadow-xl shadow-blue-600/30'
+                                    : 'bg-white border border-slate-100 text-slate-600 hover:border-blue-600 hover:text-blue-600'
                                 }`}
                               >
                                 {item}
@@ -530,7 +530,7 @@ const PublicJobListing = () => {
                         <button
                           onClick={() => goToPage(pagination.page + 1)}
                           disabled={loading || !pagination?.hasNextPage}
-                          className="w-12 h-12 flex items-center justify-center rounded-2xl bg-white border border-slate-100 text-slate-400 hover:border-navy-600 hover:text-navy-600 disabled:opacity-40 transition-all"
+                          className="w-12 h-12 flex items-center justify-center rounded-2xl bg-white border border-slate-100 text-slate-400 hover:border-blue-600 hover:text-blue-600 disabled:opacity-40 transition-all"
                         >
                           <i className="fas fa-arrow-right text-xs"></i>
                         </button>

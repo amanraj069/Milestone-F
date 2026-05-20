@@ -138,7 +138,7 @@ const BlogDetail = () => {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
       </div>
     );
   }
@@ -148,7 +148,7 @@ const BlogDetail = () => {
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <div className="text-center">
           <h2 className="text-2xl font-bold text-gray-900 mb-4">Blog not found</h2>
-          <Link to="/blogs" className="text-indigo-600 hover:text-indigo-700">
+          <Link to="/blogs" className="text-blue-600 hover:text-blue-700">
             Back to blogs
           </Link>
         </div>
@@ -163,8 +163,8 @@ const BlogDetail = () => {
         <div className="max-w-7xl mx-auto px-8">
           <div className="flex items-center justify-between py-4">
             <div className="text-4xl font-bold text-gray-900">
-              <Link to="/" className="hover:text-navy-700 transition-colors no-underline">
-                Mile<span className="text-navy-700">stone</span>
+              <Link to="/" className="hover:text-blue-700 transition-colors no-underline">
+                Mile<span className="text-blue-700">stone</span>
               </Link>
             </div>
             <div className="flex-1 max-w-md mx-8">
@@ -174,9 +174,9 @@ const BlogDetail = () => {
                   placeholder="Search for services..." 
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full px-5 py-3 border-2 border-gray-200 rounded-full text-sm outline-none transition-all focus:border-navy-700 focus:ring-4 focus:ring-navy-100"
+                  className="w-full px-5 py-3 border-2 border-gray-200 rounded-full text-sm outline-none transition-all focus:border-blue-700 focus:ring-4 focus:ring-blue-100"
                 />
-                <button type="submit" className="absolute right-1 top-1/2 -translate-y-1/2 bg-navy-700 text-white border-none rounded-full w-9 h-9 cursor-pointer transition-all hover:bg-navy-800 flex items-center justify-center shrink-0">
+                <button type="submit" className="absolute right-1 top-1/2 -translate-y-1/2 bg-blue-700 text-white border-none rounded-full w-9 h-9 cursor-pointer transition-all hover:bg-blue-800 flex items-center justify-center shrink-0">
                   <i className="fas fa-search"></i>
                 </button>
               </form>
@@ -185,7 +185,7 @@ const BlogDetail = () => {
               {user ? (
                 <Link 
                   to={getDashboardRoute()} 
-                  className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-navy-950 via-navy-900 to-navy-800 text-white rounded-lg font-medium no-underline transition-all hover:shadow-lg hover:-translate-y-0.5"
+                  className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-950 via-blue-900 to-blue-800 text-white rounded-lg font-medium no-underline transition-all hover:shadow-lg hover:-translate-y-0.5"
                 >
                   <i className="fas fa-tachometer-alt"></i>
                   Dashboard
@@ -193,7 +193,7 @@ const BlogDetail = () => {
               ) : (
                 <Link 
                   to="/login" 
-                  className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-navy-950 via-navy-900 to-navy-800 text-white rounded-lg font-medium no-underline transition-all hover:shadow-lg hover:-translate-y-0.5"
+                  className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-950 via-blue-900 to-blue-800 text-white rounded-lg font-medium no-underline transition-all hover:shadow-lg hover:-translate-y-0.5"
                 >
                   <i className="fas fa-sign-in-alt"></i>
                   Sign In
@@ -212,9 +212,9 @@ const BlogDetail = () => {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <nav className="flex items-center gap-2 text-sm text-gray-600">
-              <Link to="/" className="hover:text-indigo-600">Home</Link>
+              <Link to="/" className="hover:text-blue-600">Home</Link>
               <span>/</span>
-              <Link to="/blogs" className="hover:text-indigo-600">Blog</Link>
+              <Link to="/blogs" className="hover:text-blue-600">Blog</Link>
               <span>/</span>
               <span className="text-gray-900">{blog.category}</span>
             </nav>
@@ -228,7 +228,7 @@ const BlogDetail = () => {
           <div className="max-w-4xl mx-auto">
             {/* Category and Featured Badge */}
             <div className="flex items-center gap-3 mb-6">
-              <span className="bg-indigo-100 text-indigo-600 px-4 py-2 rounded-full text-sm font-semibold">
+              <span className="bg-blue-100 text-blue-600 px-4 py-2 rounded-full text-sm font-semibold">
                 {blog.category}
               </span>
               {blog.featured && (
@@ -254,7 +254,7 @@ const BlogDetail = () => {
             {/* Meta Info */}
             <div className="flex items-center justify-between py-6 border-y border-gray-200 mb-8">
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-indigo-600 rounded-full flex items-center justify-center text-white font-semibold">
+                <div className="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center text-white font-semibold">
                   {blog.author.split(' ').map(n => n[0]).join('')}
                 </div>
                 <div>
@@ -362,7 +362,7 @@ const BlogDetail = () => {
                     value={comment.name}
                     onChange={handleCommentChange}
                     required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     placeholder="Your name"
                   />
                 </div>
@@ -376,7 +376,7 @@ const BlogDetail = () => {
                     value={comment.email}
                     onChange={handleCommentChange}
                     required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     placeholder="your@email.com"
                   />
                 </div>
@@ -392,14 +392,14 @@ const BlogDetail = () => {
                   onChange={handleCommentChange}
                   required
                   rows="6"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   placeholder="Your comment..."
                 ></textarea>
               </div>
               
               <button 
                 type="submit"
-                className="bg-indigo-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-indigo-700 transition-colors"
+                className="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
               >
                 Post Comment
               </button>
@@ -437,7 +437,7 @@ const BlogDetail = () => {
                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                       />
                       <div className="absolute top-4 left-4">
-                        <span className="bg-white text-indigo-600 px-3 py-1 rounded-full text-xs font-semibold shadow-lg">
+                        <span className="bg-white text-blue-600 px-3 py-1 rounded-full text-xs font-semibold shadow-lg">
                           {featuredBlog.category}
                         </span>
                       </div>
@@ -457,7 +457,7 @@ const BlogDetail = () => {
                         <span>{featuredBlog.readTime} min read</span>
                       </div>
                       
-                      <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-indigo-600 transition-colors line-clamp-2">
+                      <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors line-clamp-2">
                         {featuredBlog.title}
                       </h3>
                       
@@ -466,7 +466,7 @@ const BlogDetail = () => {
                       </p>
                       
                       <div className="flex items-center gap-3 pt-4 border-t border-gray-100">
-                        <div className="w-10 h-10 bg-indigo-600 rounded-full flex items-center justify-center text-white font-semibold text-sm">
+                        <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white font-semibold text-sm">
                           {featuredBlog.author.split(' ').map(n => n[0]).join('')}
                         </div>
                         <div>
@@ -491,7 +491,7 @@ const BlogDetail = () => {
                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                       />
                       <div className="absolute top-4 left-4">
-                        <span className="bg-white text-indigo-600 px-3 py-1 rounded-full text-xs font-semibold shadow-lg">
+                        <span className="bg-white text-blue-600 px-3 py-1 rounded-full text-xs font-semibold shadow-lg">
                           {recentBlog.category}
                         </span>
                       </div>
@@ -504,7 +504,7 @@ const BlogDetail = () => {
                         <span>{recentBlog.readTime} min read</span>
                       </div>
                       
-                      <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-indigo-600 transition-colors line-clamp-2">
+                      <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors line-clamp-2">
                         {recentBlog.title}
                       </h3>
                       
@@ -513,7 +513,7 @@ const BlogDetail = () => {
                       </p>
                       
                       <div className="flex items-center gap-3 pt-4 border-t border-gray-100">
-                        <div className="w-10 h-10 bg-indigo-600 rounded-full flex items-center justify-center text-white font-semibold text-sm">
+                        <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white font-semibold text-sm">
                           {recentBlog.author.split(' ').map(n => n[0]).join('')}
                         </div>
                         <div>
@@ -529,7 +529,7 @@ const BlogDetail = () => {
               <div className="text-center mt-12">
                 <Link 
                   to="/blogs"
-                  className="inline-block bg-indigo-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-indigo-700 transition-colors"
+                  className="inline-block bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
                 >
                   View All Blogs
                 </Link>
@@ -540,13 +540,13 @@ const BlogDetail = () => {
       )}
 
       {/* Newsletter Section */}
-      <section className="py-20 bg-gradient-to-br from-indigo-600 to-purple-600">
+      <section className="py-20 bg-gradient-to-br from-blue-600 to-blue-700">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-4xl font-bold text-white mb-6">
               Subscribe to Our Newsletter
             </h2>
-            <p className="text-xl text-indigo-100 mb-8">
+            <p className="text-xl text-blue-100 mb-8">
               Get the latest insights and updates delivered to your inbox
             </p>
             
@@ -556,7 +556,7 @@ const BlogDetail = () => {
                 placeholder="Enter your email"
                 className="flex-1 px-6 py-4 rounded-full focus:outline-none focus:ring-2 focus:ring-white"
               />
-              <button className="bg-white text-indigo-600 px-8 py-4 rounded-full font-semibold hover:bg-gray-100 transition-colors whitespace-nowrap">
+              <button className="bg-white text-blue-600 px-8 py-4 rounded-full font-semibold hover:bg-gray-100 transition-colors whitespace-nowrap">
                 Subscribe
               </button>
             </div>
@@ -573,16 +573,16 @@ const BlogDetail = () => {
               <h3 className="text-2xl font-bold mb-4">Milestone</h3>
               <p className="text-gray-400 mb-6">Empowering freelancers and businesses to achieve their goals together.</p>
               <div className="flex gap-4">
-                <a href="#" className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center text-white transition-all hover:bg-navy-700 hover:-translate-y-0.5">
+                <a href="#" className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center text-white transition-all hover:bg-blue-700 hover:-translate-y-0.5">
                   <i className="fab fa-facebook"></i>
                 </a>
-                <a href="#" className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center text-white transition-all hover:bg-navy-700 hover:-translate-y-0.5">
+                <a href="#" className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center text-white transition-all hover:bg-blue-700 hover:-translate-y-0.5">
                   <i className="fab fa-twitter"></i>
                 </a>
-                <a href="#" className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center text-white transition-all hover:bg-navy-700 hover:-translate-y-0.5">
+                <a href="#" className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center text-white transition-all hover:bg-blue-700 hover:-translate-y-0.5">
                   <i className="fab fa-linkedin"></i>
                 </a>
-                <a href="#" className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center text-white transition-all hover:bg-navy-700 hover:-translate-y-0.5">
+                <a href="#" className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center text-white transition-all hover:bg-blue-700 hover:-translate-y-0.5">
                   <i className="fab fa-instagram"></i>
                 </a>
               </div>
@@ -590,36 +590,36 @@ const BlogDetail = () => {
             <div>
               <h4 className="font-semibold mb-4 text-white">For Clients</h4>
               <ul className="list-none space-y-2">
-                <li><Link to="/how-it-works" className="text-gray-400 no-underline transition-colors hover:text-navy-400">How it Works</Link></li>
-                <li><Link to="/talent" className="text-gray-400 no-underline transition-colors hover:text-navy-400">Browse Talent</Link></li>
-                <li><Link to="/post-job" className="text-gray-400 no-underline transition-colors hover:text-navy-400">Post a Job</Link></li>
-                <li><Link to="/enterprise" className="text-gray-400 no-underline transition-colors hover:text-navy-400">Enterprise</Link></li>
+                <li><Link to="/how-it-works" className="text-gray-400 no-underline transition-colors hover:text-blue-400">How it Works</Link></li>
+                <li><Link to="/talent" className="text-gray-400 no-underline transition-colors hover:text-blue-400">Browse Talent</Link></li>
+                <li><Link to="/post-job" className="text-gray-400 no-underline transition-colors hover:text-blue-400">Post a Job</Link></li>
+                <li><Link to="/enterprise" className="text-gray-400 no-underline transition-colors hover:text-blue-400">Enterprise</Link></li>
               </ul>
             </div>
             <div>
               <h4 className="font-semibold mb-4 text-white">For Freelancers</h4>
               <ul className="list-none space-y-2">
-                <li><Link to="/jobs" className="text-gray-400 no-underline transition-colors hover:text-navy-400">Find Jobs</Link></li>
-                <li><Link to="/resources" className="text-gray-400 no-underline transition-colors hover:text-navy-400">Resources</Link></li>
-                <li><Link to="/community" className="text-gray-400 no-underline transition-colors hover:text-navy-400">Community</Link></li>
-                <li><Link to="/success-stories" className="text-gray-400 no-underline transition-colors hover:text-navy-400">Success Stories</Link></li>
+                <li><Link to="/jobs" className="text-gray-400 no-underline transition-colors hover:text-blue-400">Find Jobs</Link></li>
+                <li><Link to="/resources" className="text-gray-400 no-underline transition-colors hover:text-blue-400">Resources</Link></li>
+                <li><Link to="/community" className="text-gray-400 no-underline transition-colors hover:text-blue-400">Community</Link></li>
+                <li><Link to="/success-stories" className="text-gray-400 no-underline transition-colors hover:text-blue-400">Success Stories</Link></li>
               </ul>
             </div>
             <div>
               <h4 className="font-semibold mb-4 text-white">Company</h4>
               <ul className="list-none space-y-2">
-                <li><Link to="/about" className="text-gray-400 no-underline transition-colors hover:text-navy-400">About Us</Link></li>
-                <li><Link to="/careers" className="text-gray-400 no-underline transition-colors hover:text-navy-400">Careers</Link></li>
-                <li><Link to="/press" className="text-gray-400 no-underline transition-colors hover:text-navy-400">Press</Link></li>
-                <li><Link to="/contact" className="text-gray-400 no-underline transition-colors hover:text-navy-400">Contact</Link></li>
+                <li><Link to="/about" className="text-gray-400 no-underline transition-colors hover:text-blue-400">About Us</Link></li>
+                <li><Link to="/careers" className="text-gray-400 no-underline transition-colors hover:text-blue-400">Careers</Link></li>
+                <li><Link to="/press" className="text-gray-400 no-underline transition-colors hover:text-blue-400">Press</Link></li>
+                <li><Link to="/contact" className="text-gray-400 no-underline transition-colors hover:text-blue-400">Contact</Link></li>
               </ul>
             </div>
           </div>
           <div className="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-gray-800 text-gray-400">
             <p>© 2023 Milestone. All rights reserved.</p>
             <div className="flex gap-8 mt-4 md:mt-0">
-              <Link to="/privacy" className="text-gray-400 no-underline transition-colors hover:text-navy-400">Privacy Policy</Link>
-              <Link to="/terms" className="text-gray-400 no-underline transition-colors hover:text-navy-400">Terms of Service</Link>
+              <Link to="/privacy" className="text-gray-400 no-underline transition-colors hover:text-blue-400">Privacy Policy</Link>
+              <Link to="/terms" className="text-gray-400 no-underline transition-colors hover:text-blue-400">Terms of Service</Link>
             </div>
           </div>
         </div>
